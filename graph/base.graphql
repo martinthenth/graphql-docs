@@ -1,0 +1,70 @@
+"An RFC 5322 compliant email address"
+scalar EmailAddress
+
+"An RFC 3339 compliant date time"
+scalar DateTime
+
+"A RFC 4122 compliant UUID"
+scalar UUID
+
+"An authorization directive for fields and arguments"
+directive @authorization(
+    authenticated: Boolean
+    permissions: [Permission]
+) on FIELD_DEFINITION
+
+"A constraint directive for input fields and arguments"
+directive @constraint(
+    required: Boolean
+) on INPUT_FIELD_DEFINITION | ARGUMENT_DEFINITION
+
+"An enum describing the permissions a user can have"
+enum Permission {
+    "An authenticated admin user"
+    ADMIN
+    "An authenticated user"
+    USER
+}
+
+"An input to create a flag"
+input CreateFlagInput {
+    "The name of the flag to create"
+    name: String @constraint(required: true)
+}
+
+type Mutation {
+    "Create a flag"
+    createFlag(
+        input: CreateFlagInput @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): Flag @authorization(authenticated: true, permissions: [ADMIN])
+}
+
+type Query {
+    "Get a flag by name"
+    getFlagByName(name: String @constraint(required: true)): Flag
+}
+
+type Flag {
+    id: UUID @authorization(permissions: [ADMIN])
+    "The name of the flag"
+    name: String
+    "Whether the flag is enabled or not"
+    enabled: Boolean
+    "The date and time the flag was enabled"
+    enabledAt: DateTime @authorization(permissions: [ADMIN])
+    "The user who enabled the flag"
+    enabledByUserId: UUID @authorization(permissions: [ADMIN])
+    "The date and time the flag was created"
+    createdAt: DateTime @authorization(permissions: [ADMIN])
+    "The user who created the flag"
+    createdByUserId: UUID @authorization(permissions: [ADMIN])
+    "The date and time the flag was last updated"
+    updatedAt: DateTime @authorization(permissions: [ADMIN])
+    "The user who last updated the flag"
+    updatedByUserId: UUID @authorization(permissions: [ADMIN])
+    "The date and time the flag was deleted"
+    deletedAt: DateTime @authorization(permissions: [ADMIN])
+    "The user who deleted the flag"
+    deletedByUserId: UUID @authorization(permissions: [ADMIN])
+}

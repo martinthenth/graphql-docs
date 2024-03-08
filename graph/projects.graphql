@@ -1,0 +1,45 @@
+input CreateProjectInput {
+    name: String @constraint(required: true)
+    published: Boolean
+}
+
+input UpdateProjectInput {
+    name: String
+    published: Boolean
+}
+
+extend type Mutation {
+    "Create a project"
+    createProject(
+        input: CreateProjectInput @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): Project
+    "Update a project"
+    updateProject(
+        id: UUID @constraint(required: true)
+        input: UpdateProjectInput @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): Project
+    "Delete a project"
+    deleteProject(
+        id: UUID @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): Project
+}
+
+extend type Query {
+    "Get a project by id"
+    getProjectById(id: UUID @constraint(required: true)): Project
+    "List the projects"
+    listProjects(after: UUID, start: Int, limit: Int): [Project]
+}
+
+"The project object"
+type Project {
+    id: UUID
+    name: String
+    published: Boolean
+    createdAt: DateTime
+    updatedAt: DateTime
+    deletedAt: DateTime
+}
