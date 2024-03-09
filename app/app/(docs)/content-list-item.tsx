@@ -1,10 +1,123 @@
 import { uuid4 } from "@/lib/uuid";
-import { APIType, APITypeField, APITypeFieldArgument } from "@/types";
+import { APIDocsArticle, APIType, APITypeField, APITypeFieldArgument } from "@/types";
 import { HTMLAttributes } from "react";
 import { CodeBlock } from "@/components/ui/codeblock";
 import { Flex } from "@/components/ui/flex";
 import { Grid } from "@/components/ui/grid";
 import { H3, H4, H5, P } from "@/components/ui/typography";
+
+interface DocsContentListItemProps extends HTMLAttributes<HTMLDivElement> {
+  article: APIDocsArticle;
+}
+
+export function DocsContentListItem({ article, className }: DocsContentListItemProps) {
+  const isQuery = article.type === "Query";
+  const isMutation = article.type === "Mutation";
+  const isType = !isQuery && !isMutation;
+  const definition = article.definition as APIType | APITypeField;
+
+  return (
+    <div className={className}>
+      <header>
+        <H3>{article.definition?.description}</H3>
+      </header>
+      <Grid gap="md" items="start" className="grid-cols-2">
+        <Grid>
+          <div>
+            <header className="py-2">
+              <H4>{article.type}</H4>
+              <P>
+                <span className="p-1 bg-stone-100 rounded-lg inline-block">
+                  <code>{article.type}</code>
+                </span>
+              </P>
+            </header>
+          </div>
+          <div>
+            <header className="py-2">
+              <H4>Attributes / parameters</H4>
+            </header>
+            <section>
+              {isType && (
+                <DocsContentListItemAttributes
+                  attributes={(definition as APIType).fieldNames!.map(
+                    (fieldName) => (definition as APIType).fields![fieldName],
+                  )}
+                />
+              )}
+              {isQuery ||
+                (isMutation && (
+                  <DocsContentListItemParameters
+                    parameters={(definition as APITypeField).argumentNames!.map(
+                      (argumentName) => (definition as APITypeField).arguments![argumentName],
+                    )}
+                  />
+                ))}
+            </section>
+          </div>
+        </Grid>
+        <Grid>
+          {/* <div className="rounded-lg overflow-hidden">
+            <div className="bg-stone-800 text-white p-2">
+              <H5>The thing object</H5>
+            </div>
+            <CodeBlock content={example} language="json" />
+          </div> */}
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
+
+function DocsContentListItemAttributes({ attributes }: { attributes: APITypeField[] }) {
+  return (
+    <section>
+      {attributes.map((attribute) => (
+        <DocsContentListItemField
+          key={attribute.name}
+          type={attribute.type}
+          name={attribute.name}
+          description={attribute.description}
+        />
+      ))}
+    </section>
+  );
+}
+
+function DocsContentListItemParameters({ parameters }: { parameters: APITypeFieldArgument[] }) {
+  return (
+    <section>
+      {parameters.map((parameter) => (
+        <DocsContentListItemField
+          key={parameter.name}
+          type={parameter.type}
+          name={parameter.name}
+          description={parameter.description}
+        />
+      ))}
+    </section>
+  );
+}
+
+function DocsContentListItemField({ description, name, type }: DocsContentListItemFieldProps) {
+  return (
+    <article className="border-t py-2 last:pb-0">
+      <Grid gap="xs">
+        <Flex gap="sm" items="end">
+          <H5>
+            <code>{name}</code>
+          </H5>
+          <P color="tertiary" size="sm">
+            {type}
+          </P>
+        </Flex>
+        {description && <P color="secondary">{description}</P>}
+      </Grid>
+    </article>
+  );
+}
+
+// OLD
 
 interface DocsContentListItemTypeProps extends HTMLAttributes<HTMLDivElement> {
   definition: APIType;
@@ -112,24 +225,6 @@ export function DocsContentListItemAction({
         </Grid>
       </Grid>
     </div>
-  );
-}
-
-function DocsContentListItemField({ description, name, type }: DocsContentListItemFieldProps) {
-  return (
-    <article className="border-t py-2">
-      <Grid gap="xs">
-        <Flex gap="sm" items="end">
-          <H5>
-            <code>{name}</code>
-          </H5>
-          <P color="tertiary" size="sm">
-            {type}
-          </P>
-        </Flex>
-        {description && <P color="secondary">{description}</P>}
-      </Grid>
-    </article>
   );
 }
 
