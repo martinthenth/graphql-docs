@@ -1,5 +1,5 @@
 {
-  "version": "2024-03-09T00:21:03Z",
+  "version": "2024-03-09T00:40:05Z",
   "directives": {},
   "enums": {
     "Permission": {
@@ -23,7 +23,7 @@
           "type": "String",
           "description": "The name of the flag to create",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "constraint": {
               "required": "true"
@@ -31,7 +31,9 @@
           }
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "name"
+      ]
     },
     "CreateOrganizationInput": {
       "description": null,
@@ -41,7 +43,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "constraint": {
               "required": "true"
@@ -49,7 +51,9 @@
           }
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "name"
+      ]
     },
     "CreateProjectInput": {
       "description": null,
@@ -59,7 +63,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "constraint": {
               "required": "true"
@@ -71,11 +75,14 @@
           "type": "Boolean",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "name",
+        "published"
+      ]
     },
     "CreateUserInput": {
       "description": null,
@@ -85,7 +92,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "constraint": {
               "required": "true"
@@ -97,7 +104,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "constraint": {
               "required": "true"
@@ -105,7 +112,10 @@
           }
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "firstName",
+        "lastName"
+      ]
     },
     "UpdateOrganizationInput": {
       "description": null,
@@ -115,11 +125,13 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "name"
+      ]
     },
     "UpdateProjectInput": {
       "description": null,
@@ -129,7 +141,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "published": {
@@ -137,11 +149,14 @@
           "type": "Boolean",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "name",
+        "published"
+      ]
     },
     "UpdateUserInput": {
       "description": null,
@@ -151,7 +166,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "lastName": {
@@ -159,11 +174,14 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "firstName",
+        "lastName"
+      ]
     }
   },
   "scalars": {
@@ -201,7 +219,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was created",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -213,7 +231,7 @@
           "type": "UUID",
           "description": "The user who created the flag",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -225,7 +243,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was deleted",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -237,7 +255,7 @@
           "type": "UUID",
           "description": "The user who deleted the flag",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -249,7 +267,7 @@
           "type": "Boolean",
           "description": "Whether the flag is enabled or not",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "enabledAt": {
@@ -257,7 +275,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was enabled",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -269,7 +287,7 @@
           "type": "UUID",
           "description": "The user who enabled the flag",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -281,7 +299,7 @@
           "type": "UUID",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -293,7 +311,7 @@
           "type": "String",
           "description": "The name of the flag",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "updatedAt": {
@@ -301,7 +319,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was last updated",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -313,7 +331,7 @@
           "type": "UUID",
           "description": "The user who last updated the flag",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -321,7 +339,19 @@
           }
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "id",
+        "name",
+        "enabled",
+        "enabledAt",
+        "enabledByUserId",
+        "createdAt",
+        "createdByUserId",
+        "updatedAt",
+        "updatedByUserId",
+        "deletedAt",
+        "deletedByUserId"
+      ]
     },
     "Mutation": {
       "description": null,
@@ -352,7 +382,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "input",
+            "nonce"
+          ],
           "directives": {
             "authorization": {
               "authenticated": "true",
@@ -386,7 +419,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "input",
+            "nonce"
+          ],
           "directives": null
         },
         "createProject": {
@@ -415,7 +451,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "input",
+            "nonce"
+          ],
           "directives": null
         },
         "createUser": {
@@ -444,7 +483,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "input",
+            "nonce"
+          ],
           "directives": null
         },
         "deleteOrganization": {
@@ -473,7 +515,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id",
+            "nonce"
+          ],
           "directives": null
         },
         "deleteProject": {
@@ -502,7 +547,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id",
+            "nonce"
+          ],
           "directives": null
         },
         "deleteUser": {
@@ -531,7 +579,10 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id",
+            "nonce"
+          ],
           "directives": null
         },
         "updateOrganization": {
@@ -570,7 +621,11 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id",
+            "input",
+            "nonce"
+          ],
           "directives": null
         },
         "updateProject": {
@@ -609,7 +664,11 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id",
+            "input",
+            "nonce"
+          ],
           "directives": null
         },
         "updateUser": {
@@ -648,11 +707,26 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id",
+            "input",
+            "nonce"
+          ],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "createFlag",
+        "createOrganization",
+        "updateOrganization",
+        "deleteOrganization",
+        "createProject",
+        "updateProject",
+        "deleteProject",
+        "createUser",
+        "updateUser",
+        "deleteUser"
+      ]
     },
     "Organization": {
       "description": "The organization object",
@@ -662,7 +736,7 @@
           "type": "DateTime",
           "description": "Timestamp when the organization was created",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "deletedAt": {
@@ -670,7 +744,7 @@
           "type": "DateTime",
           "description": "Timestamp when the organization was deleted, null if not deleted",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "id": {
@@ -678,7 +752,7 @@
           "type": "UUID",
           "description": "Unique identifier of the organization",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "name": {
@@ -686,7 +760,7 @@
           "type": "String",
           "description": "Name of the organization",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "updatedAt": {
@@ -694,11 +768,17 @@
           "type": "DateTime",
           "description": "Timestamp when the organization was last updated",
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "id",
+        "name",
+        "createdAt",
+        "updatedAt",
+        "deletedAt"
+      ]
     },
     "Project": {
       "description": "The project object",
@@ -708,7 +788,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "deletedAt": {
@@ -716,7 +796,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "id": {
@@ -724,7 +804,7 @@
           "type": "UUID",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "name": {
@@ -732,7 +812,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "published": {
@@ -740,7 +820,7 @@
           "type": "Boolean",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "updatedAt": {
@@ -748,11 +828,18 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "id",
+        "name",
+        "published",
+        "createdAt",
+        "updatedAt",
+        "deletedAt"
+      ]
     },
     "Query": {
       "description": null,
@@ -773,7 +860,9 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "name"
+          ],
           "directives": null
         },
         "getOrganizationById": {
@@ -792,7 +881,9 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id"
+          ],
           "directives": null
         },
         "getProjectById": {
@@ -811,7 +902,9 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id"
+          ],
           "directives": null
         },
         "getUserById": {
@@ -830,7 +923,9 @@
               }
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "id"
+          ],
           "directives": null
         },
         "listOrganizations": {
@@ -857,7 +952,11 @@
               "directives": null
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "after",
+            "start",
+            "limit"
+          ],
           "directives": null
         },
         "listProjects": {
@@ -884,7 +983,11 @@
               "directives": null
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "after",
+            "start",
+            "limit"
+          ],
           "directives": null
         },
         "listUsers": {
@@ -911,11 +1014,23 @@
               "directives": null
             }
           },
-          "argumentNames": null,
+          "argumentNames": [
+            "after",
+            "start",
+            "limit"
+          ],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "getFlagByName",
+        "getOrganizationById",
+        "listOrganizations",
+        "getProjectById",
+        "listProjects",
+        "getUserById",
+        "listUsers"
+      ]
     },
     "User": {
       "description": "The user object",
@@ -925,7 +1040,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "deletedAt": {
@@ -933,7 +1048,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "firstName": {
@@ -941,7 +1056,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "id": {
@@ -949,7 +1064,7 @@
           "type": "UUID",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "lastName": {
@@ -957,7 +1072,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         },
         "updatedAt": {
@@ -965,11 +1080,18 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": null,
+          "argumentNames": [],
           "directives": null
         }
       },
-      "fieldNames": null
+      "fieldNames": [
+        "id",
+        "firstName",
+        "lastName",
+        "createdAt",
+        "updatedAt",
+        "deletedAt"
+      ]
     }
   }
 }

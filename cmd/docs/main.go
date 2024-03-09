@@ -192,52 +192,60 @@ func parseEnum(g *graph, e *ast.Definition) {
 }
 
 func parseInput(g *graph, i *ast.Definition) {
-	ifs := fields{}
-	for _, fd := range i.Fields {
-		ifas := parseFieldArguments(fd)
-		ifds := parseFieldDirectives(fd)
-		ifs[fd.Name] = field{
-			Name:        fd.Name,
-			Type:        fd.Type.String(),
-			Description: toPointer(fd.Description),
-			Arguments:   &ifas,
-			Directives:  &ifds,
+	fs := fields{}
+	fns := []string{}
+	for _, if0 := range i.Fields {
+		fas, fans := parseFieldArguments(if0)
+		fds := parseFieldDirectives(if0)
+		fns = append(fns, if0.Name)
+		fs[if0.Name] = field{
+			Name:          if0.Name,
+			Type:          if0.Type.String(),
+			Description:   toPointer(if0.Description),
+			Arguments:     &fas,
+			ArgumentNames: fans,
+			Directives:    &fds,
 		}
 	}
 	if len(i.Fields) == 0 {
-		ifs = nil
+		fs = nil
 	}
 
 	g.Inputs[i.Name] = input{
 		Description: toPointer(i.Description),
-		Fields:      ifs,
+		Fields:      fs,
+		FieldNames:  fns,
 	}
 }
 
 func parseType(g *graph, t *ast.Definition) {
-	ofs := fields{}
+	fs := fields{}
+	fns := []string{}
 	for _, tf := range t.Fields {
 		if strings.HasPrefix(tf.Name, "__") {
 			continue
 		}
 
-		ofas := parseFieldArguments(tf)
-		ofds := parseFieldDirectives(tf)
-		ofs[tf.Name] = field{
-			Name:        tf.Name,
-			Type:        tf.Type.String(),
-			Description: toPointer(tf.Description),
-			Arguments:   &ofas,
-			Directives:  &ofds,
+		fas, fans := parseFieldArguments(tf)
+		fds := parseFieldDirectives(tf)
+		fns = append(fns, tf.Name)
+		fs[tf.Name] = field{
+			Name:          tf.Name,
+			Type:          tf.Type.String(),
+			Description:   toPointer(tf.Description),
+			Arguments:     &fas,
+			ArgumentNames: fans,
+			Directives:    &fds,
 		}
 	}
 	if len(t.Fields) == 0 {
-		ofs = nil
+		fs = nil
 	}
 
 	g.Types[t.Name] = object{
 		Description: toPointer(t.Description),
-		Fields:      ofs,
+		Fields:      fs,
+		FieldNames:  fns,
 	}
 }
 
@@ -245,65 +253,67 @@ func parseScalar(g *graph, s *ast.Definition) {
 	g.Scalars[s.Name] = scalar{Description: toPointer(s.Description)}
 }
 
-func parseFieldArguments(fd *ast.FieldDefinition) fieldArguments {
-	ofas := fieldArguments{}
-	for _, tfa := range fd.Arguments {
-		ofads := parseFieldArgumentDirectives(tfa)
-		ofas[tfa.Name] = fieldArgument{
-			Type:        tfa.Type.String(),
-			Description: toPointer(tfa.Description),
-			Directives:  &ofads,
+func parseFieldArguments(fd *ast.FieldDefinition) (fieldArguments, []string) {
+	fas := fieldArguments{}
+	fans := []string{}
+	for _, fda := range fd.Arguments {
+		fads := parseFieldArgumentDirectives(fda)
+		fans = append(fans, fda.Name)
+		fas[fda.Name] = fieldArgument{
+			Type:        fda.Type.String(),
+			Description: toPointer(fda.Description),
+			Directives:  &fads,
 		}
 	}
 	if len(fd.Arguments) == 0 {
-		ofas = nil
+		fas = nil
 	}
 
-	return ofas
+	return fas, fans
 }
 
 func parseFieldArgumentDirectives(ad *ast.ArgumentDefinition) fieldArgumentDirectives {
-	ofads := fieldArgumentDirectives{}
-	for _, tfad := range ad.Directives {
-		ofads[tfad.Name] = parseFieldArgumentDirective(tfad)
+	fads := fieldArgumentDirectives{}
+	for _, add := range ad.Directives {
+		fads[add.Name] = parseFieldArgumentDirective(add)
 	}
 	if len(ad.Directives) == 0 {
-		ofads = nil
+		fads = nil
 	}
 
-	return ofads
+	return fads
 }
 
 func parseFieldArgumentDirective(d *ast.Directive) fieldArgumentDirective {
-	ofad := fieldArgumentDirective{}
-	for _, a := range d.Arguments {
-		ofad[a.Name] = toPointer(a.Value.String())
+	fad := fieldArgumentDirective{}
+	for _, da := range d.Arguments {
+		fad[da.Name] = toPointer(da.Value.String())
 	}
 	if len(d.Arguments) == 0 {
-		ofad = nil
+		fad = nil
 	}
 
-	return ofad
+	return fad
 }
 
 func parseFieldDirectives(fd *ast.FieldDefinition) fieldDirectives {
-	ifds := fieldDirectives{}
-	for _, d := range fd.Directives {
-		ifd := fieldDirective{}
-		for _, a := range d.Arguments {
-			ifd[a.Name] = a.Value.String()
+	fds := fieldDirectives{}
+	for _, fdd := range fd.Directives {
+		fd := fieldDirective{}
+		for _, a := range fdd.Arguments {
+			fd[a.Name] = a.Value.String()
 		}
-		if len(d.Arguments) == 0 {
-			ifd = nil
+		if len(fdd.Arguments) == 0 {
+			fd = nil
 		}
 
-		ifds[d.Name] = ifd
+		fds[fdd.Name] = fd
 	}
 	if len(fd.Directives) == 0 {
-		ifds = nil
+		fds = nil
 	}
 
-	return ifds
+	return fds
 }
 
 func toPointer(s string) *string {
