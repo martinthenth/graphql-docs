@@ -1,18 +1,18 @@
 import { uuid4 } from "@/lib/uuid";
 import { API, APIDocs } from "@/types";
 import { promises as fs } from "fs";
-import { ApiContent } from "./content";
-import { ApiSidebar } from "./sidebar";
+import { DocsContent } from "./content";
+import { DocsSidebar } from "./sidebar";
 
 const apiFilePath = "/lib/graph.json";
 
-export default async function ApiPage() {
+export default async function DocsPage() {
   const docs = await generateApiDocs(apiFilePath);
 
   return (
     <>
-      <ApiSidebar docs={docs} className="w-64" />
-      <ApiContent docs={docs} className="w-full" />
+      <DocsSidebar docs={docs} className="w-64" />
+      <DocsContent docs={docs} className="w-full" />
     </>
   );
 }

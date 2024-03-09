@@ -2,25 +2,25 @@ import { APIDocsArticle, APIType, APITypeField } from "@/types";
 import { HTMLAttributes } from "react";
 import { Grid } from "@/components/ui/grid";
 import { H2 } from "@/components/ui/typography";
-import { ApiContentListItemAction, ApiContentListItemType } from "./content-list-item";
+import { DocsContentListItemAction, DocsContentListItemType } from "./content-list-item";
 
-interface ApiContentListProps extends HTMLAttributes<HTMLDivElement> {
+interface DocsContentListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   articles: APIDocsArticle[];
 }
 
-export function ApiContentList({ articles, title }: ApiContentListProps) {
+export function DocsContentList({ articles, title }: DocsContentListProps) {
   return (
     <Grid gap="sm">
       <H2>{title}</H2>
       {articles.map((article) =>
         ["Query", "Mutation"].includes(article.type) ? (
-          <ApiContentListItemAction
+          <DocsContentListItemAction
             key={article.id}
             definition={article.definition as APITypeField}
           />
         ) : (
-          <ApiContentListItemType key={article.id} definition={article.definition as APIType} />
+          <DocsContentListItemType key={article.id} definition={article.definition as APIType} />
         ),
       )}
     </Grid>

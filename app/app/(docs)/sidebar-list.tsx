@@ -6,12 +6,12 @@ import { HTMLAttributes, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { P } from "@/components/ui/typography";
 
-interface ApiSidebarListProps extends HTMLAttributes<HTMLDivElement> {
+interface DocsSidebarListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   articles: APIDocsArticle[];
 }
 
-export function ApiSidebarList({ articles, title }: ApiSidebarListProps) {
+export function DocsSidebarList({ articles, title }: DocsSidebarListProps) {
   const [open, setOpen] = useState(true);
 
   return (

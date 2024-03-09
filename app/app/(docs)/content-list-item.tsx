@@ -6,19 +6,19 @@ import { Flex } from "@/components/ui/flex";
 import { Grid } from "@/components/ui/grid";
 import { H3, H4, H5, P } from "@/components/ui/typography";
 
-interface ApiContentListItemTypeProps extends HTMLAttributes<HTMLDivElement> {
+interface DocsContentListItemTypeProps extends HTMLAttributes<HTMLDivElement> {
   definition: APIType;
 }
-interface ApiContentListItemActionProps extends HTMLAttributes<HTMLDivElement> {
+interface DocsContentListItemActionProps extends HTMLAttributes<HTMLDivElement> {
   definition: APITypeField;
 }
-interface ApiContentListItemFieldProps extends HTMLAttributes<HTMLDivElement> {
+interface DocsContentListItemFieldProps extends HTMLAttributes<HTMLDivElement> {
   name: string;
   type: string;
   description: string | null;
 }
 
-export function ApiContentListItemType({ definition }: ApiContentListItemTypeProps) {
+export function DocsContentListItemType({ definition }: DocsContentListItemTypeProps) {
   const title = definition.description || "";
   const subtitle = "Attributes";
   const fields =
@@ -37,7 +37,7 @@ export function ApiContentListItemType({ definition }: ApiContentListItemTypePro
           </header>
           <section>
             {fields.map((field) => (
-              <ApiContentListItemField
+              <DocsContentListItemField
                 key={field.name}
                 description={field.description}
                 name={field.name}
@@ -54,7 +54,7 @@ export function ApiContentListItemType({ definition }: ApiContentListItemTypePro
   );
 }
 
-export function ApiContentListItemAction({ definition }: ApiContentListItemActionProps) {
+export function DocsContentListItemAction({ definition }: DocsContentListItemActionProps) {
   const title = definition.description || "";
   const subtitle = "Parameters";
   const fields =
@@ -73,7 +73,7 @@ export function ApiContentListItemAction({ definition }: ApiContentListItemActio
           </header>
           <section>
             {fields.map((field) => (
-              <ApiContentListItemField
+              <DocsContentListItemField
                 key={field.name}
                 description={field.description}
                 name={field.name}
@@ -90,7 +90,7 @@ export function ApiContentListItemAction({ definition }: ApiContentListItemActio
   );
 }
 
-function ApiContentListItemField({ description, name, type }: ApiContentListItemFieldProps) {
+function DocsContentListItemField({ description, name, type }: DocsContentListItemFieldProps) {
   return (
     <article className="border-t py-2">
       <Grid gap="xs">
