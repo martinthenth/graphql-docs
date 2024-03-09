@@ -1,4 +1,5 @@
-import { APIDocsArticle, APIType, APITypeField } from "@/types";
+import { uuid4 } from "@/lib/uuid";
+import { APIDocsArticle, APIType, APITypeField, APITypeFieldArgument } from "@/types";
 import { HTMLAttributes } from "react";
 import { Grid } from "@/components/ui/grid";
 import { H2 } from "@/components/ui/typography";
@@ -40,16 +41,16 @@ export function ApiContentList({ articles, title }: ApiContentListProps) {
       <H2>{title}</H2>
       {articles.map((article) =>
         ["Query", "Mutation"].includes(article.type) ? (
-          <ApiContentListItemAction article={article} />
+          <ActionListItem article={article} />
         ) : (
-          <ApiContentListItemType article={article} />
+          <TypeListItem article={article} />
         ),
       )}
     </Grid>
   );
 }
 
-function ApiContentListItemAction({ article }: { article: APIDocsArticle }) {
+function ActionListItem({ article }: { article: APIDocsArticle }) {
   const definition = article.definition as APITypeField;
   const title = definition.description || "";
   const subtitle = "Parameters";
@@ -57,9 +58,10 @@ function ApiContentListItemAction({ article }: { article: APIDocsArticle }) {
     definition.arguments && definition.argumentNames
       ? definition.argumentNames.map((argumentName) => definition.arguments![argumentName])
       : [];
+  const example = buildExample(fields);
 
   return (
-    <ApiContentListItem key={article.id} example={code} subtitle={subtitle} title={title}>
+    <ApiContentListItem key={article.id} example={example} subtitle={subtitle} title={title}>
       {fields.map((field) => (
         <ApiContentListItemField
           key={article.id + field.name}
@@ -72,7 +74,7 @@ function ApiContentListItemAction({ article }: { article: APIDocsArticle }) {
   );
 }
 
-function ApiContentListItemType({ article }: { article: APIDocsArticle }) {
+function TypeListItem({ article }: { article: APIDocsArticle }) {
   const definition = article.definition as APIType;
   const title = definition.description || "";
   const subtitle = "Attributes";
@@ -80,9 +82,10 @@ function ApiContentListItemType({ article }: { article: APIDocsArticle }) {
     definition.fields && definition.fieldNames
       ? definition.fieldNames.map((fieldName) => definition.fields![fieldName])
       : [];
+  const example = buildExample(fields);
 
   return (
-    <ApiContentListItem key={article.id} example={code} subtitle={subtitle} title={title}>
+    <ApiContentListItem key={article.id} example={example} subtitle={subtitle} title={title}>
       {fields.map((field) => (
         <ApiContentListItemField
           key={article.id + field.name}
@@ -93,4 +96,33 @@ function ApiContentListItemType({ article }: { article: APIDocsArticle }) {
       ))}
     </ApiContentListItem>
   );
+}
+
+function buildExample(fields: APITypeFieldArgument[] | APITypeField[]) {
+  let example: Record<string, any> = {};
+
+  fields.forEach((field) => {
+    const value = (() => {
+      switch (field.type) {
+        case "ID":
+          return "id";
+        case "UUID":
+          return uuid4();
+        case "Int":
+          return 42;
+        case "String":
+          return "string";
+        case "Boolean":
+          return true;
+        case "DateTime":
+          return new Date().toISOString();
+        default:
+          return null;
+      }
+    })();
+
+    example[field.name] = value;
+  });
+
+  return JSON.stringify(example, null, 2);
 }
