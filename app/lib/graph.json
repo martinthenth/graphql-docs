@@ -1,0 +1,906 @@
+{
+  "version": "2024-03-08T23:57:28Z",
+  "directives": {},
+  "enums": {
+    "Permission": {
+      "values": {
+        "ADMIN": {
+          "description": "An authenticated admin user"
+        },
+        "USER": {
+          "description": "An authenticated user"
+        }
+      },
+      "description": "An enum describing the permissions a user can have"
+    }
+  },
+  "inputs": {
+    "CreateFlagInput": {
+      "description": "An input to create a flag",
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": "The name of the flag to create",
+          "arguments": null,
+          "directives": {
+            "constraint": {
+              "required": "true"
+            }
+          }
+        }
+      ]
+    },
+    "CreateOrganizationInput": {
+      "description": null,
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": {
+            "constraint": {
+              "required": "true"
+            }
+          }
+        }
+      ]
+    },
+    "CreateProjectInput": {
+      "description": null,
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": {
+            "constraint": {
+              "required": "true"
+            }
+          }
+        },
+        {
+          "name": "published",
+          "type": "Boolean",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    },
+    "CreateUserInput": {
+      "description": null,
+      "fields": [
+        {
+          "name": "firstName",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": {
+            "constraint": {
+              "required": "true"
+            }
+          }
+        },
+        {
+          "name": "lastName",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": {
+            "constraint": {
+              "required": "true"
+            }
+          }
+        }
+      ]
+    },
+    "UpdateOrganizationInput": {
+      "description": null,
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    },
+    "UpdateProjectInput": {
+      "description": null,
+      "fields": [
+        {
+          "name": "name",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "published",
+          "type": "Boolean",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    },
+    "UpdateUserInput": {
+      "description": null,
+      "fields": [
+        {
+          "name": "firstName",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "lastName",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    }
+  },
+  "scalars": {
+    "Boolean": {
+      "description": "The `Boolean` scalar type represents `true` or `false`."
+    },
+    "DateTime": {
+      "description": "An RFC 3339 compliant date time"
+    },
+    "EmailAddress": {
+      "description": "An RFC 5322 compliant email address"
+    },
+    "Float": {
+      "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point)."
+    },
+    "ID": {
+      "description": "The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as \"4\") or integer (such as 4) input value will be accepted as an ID."
+    },
+    "Int": {
+      "description": "The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1."
+    },
+    "String": {
+      "description": "The `String`scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text."
+    },
+    "UUID": {
+      "description": "A RFC 4122 compliant UUID"
+    }
+  },
+  "types": {
+    "Flag": {
+      "description": null,
+      "fields": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "description": null,
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "description": "The name of the flag",
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "enabled",
+          "type": "Boolean",
+          "description": "Whether the flag is enabled or not",
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "enabledAt",
+          "type": "DateTime",
+          "description": "The date and time the flag was enabled",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "enabledByUserId",
+          "type": "UUID",
+          "description": "The user who enabled the flag",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "createdAt",
+          "type": "DateTime",
+          "description": "The date and time the flag was created",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "createdByUserId",
+          "type": "UUID",
+          "description": "The user who created the flag",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "updatedAt",
+          "type": "DateTime",
+          "description": "The date and time the flag was last updated",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "updatedByUserId",
+          "type": "UUID",
+          "description": "The user who last updated the flag",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "deletedAt",
+          "type": "DateTime",
+          "description": "The date and time the flag was deleted",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "deletedByUserId",
+          "type": "UUID",
+          "description": "The user who deleted the flag",
+          "arguments": null,
+          "directives": {
+            "authorization": {
+              "permissions": "[ADMIN]"
+            }
+          }
+        }
+      ]
+    },
+    "Mutation": {
+      "description": null,
+      "fields": [
+        {
+          "name": "createFlag",
+          "type": "Flag",
+          "description": "Create a flag",
+          "arguments": [
+            {
+              "name": "",
+              "type": "CreateFlagInput",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": {
+            "authorization": {
+              "authenticated": "true",
+              "permissions": "[ADMIN]"
+            }
+          }
+        },
+        {
+          "name": "createOrganization",
+          "type": "Organization",
+          "description": "Create an organization",
+          "arguments": [
+            {
+              "name": "",
+              "type": "CreateOrganizationInput",
+              "description": "Input for creating an organization",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of the request",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "updateOrganization",
+          "type": "Organization",
+          "description": "Update an organization",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of the organization",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UpdateOrganizationInput",
+              "description": "Input for updating an organization",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of the request",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "deleteOrganization",
+          "type": "Organization",
+          "description": "Delete an organization",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of the organization",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of the request",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "createProject",
+          "type": "Project",
+          "description": "Create a project",
+          "arguments": [
+            {
+              "name": "",
+              "type": "CreateProjectInput",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "updateProject",
+          "type": "Project",
+          "description": "Update a project",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UpdateProjectInput",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "deleteProject",
+          "type": "Project",
+          "description": "Delete a project",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "createUser",
+          "type": "User",
+          "description": "Create a user",
+          "arguments": [
+            {
+              "name": "",
+              "type": "CreateUserInput",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "updateUser",
+          "type": "User",
+          "description": "Update a user",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UpdateUserInput",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "deleteUser",
+          "type": "User",
+          "description": "Delete a user",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            },
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        }
+      ]
+    },
+    "Organization": {
+      "description": "The organization object",
+      "fields": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "description": "Unique identifier of the organization",
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "description": "Name of the organization",
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "createdAt",
+          "type": "DateTime",
+          "description": "Timestamp when the organization was created",
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "updatedAt",
+          "type": "DateTime",
+          "description": "Timestamp when the organization was last updated",
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "deletedAt",
+          "type": "DateTime",
+          "description": "Timestamp when the organization was deleted, null if not deleted",
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    },
+    "Project": {
+      "description": "The project object",
+      "fields": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "published",
+          "type": "Boolean",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "createdAt",
+          "type": "DateTime",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "updatedAt",
+          "type": "DateTime",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "deletedAt",
+          "type": "DateTime",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    },
+    "Query": {
+      "description": null,
+      "fields": [
+        {
+          "name": "getFlagByName",
+          "type": "Flag",
+          "description": "Get a flag by name",
+          "arguments": [
+            {
+              "name": "",
+              "type": "String",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "getOrganizationById",
+          "type": "Organization",
+          "description": "Get an organization by id",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of an organization",
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "listOrganizations",
+          "type": "[Organization]",
+          "description": "List the organizations",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": "Unique identifier of an organization to start after",
+              "directives": null
+            },
+            {
+              "name": "",
+              "type": "Int",
+              "description": "Number of organizations to start after",
+              "directives": null
+            },
+            {
+              "name": "",
+              "type": "Int",
+              "description": "Number of organizations to return",
+              "directives": null
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "getProjectById",
+          "type": "Project",
+          "description": "Get a project by id",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "listProjects",
+          "type": "[Project]",
+          "description": "List the projects",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": null
+            },
+            {
+              "name": "",
+              "type": "Int",
+              "description": null,
+              "directives": null
+            },
+            {
+              "name": "",
+              "type": "Int",
+              "description": null,
+              "directives": null
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "getUserById",
+          "type": "User",
+          "description": "Get a user by id",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": {
+                "constraint": {
+                  "required": "true"
+                }
+              }
+            }
+          ],
+          "directives": null
+        },
+        {
+          "name": "listUsers",
+          "type": "[User]",
+          "description": "List the users",
+          "arguments": [
+            {
+              "name": "",
+              "type": "UUID",
+              "description": null,
+              "directives": null
+            },
+            {
+              "name": "",
+              "type": "Int",
+              "description": null,
+              "directives": null
+            },
+            {
+              "name": "",
+              "type": "Int",
+              "description": null,
+              "directives": null
+            }
+          ],
+          "directives": null
+        }
+      ]
+    },
+    "User": {
+      "description": "The user object",
+      "fields": [
+        {
+          "name": "id",
+          "type": "UUID",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "firstName",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "lastName",
+          "type": "String",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "createdAt",
+          "type": "DateTime",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "updatedAt",
+          "type": "DateTime",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        },
+        {
+          "name": "deletedAt",
+          "type": "DateTime",
+          "description": null,
+          "arguments": null,
+          "directives": null
+        }
+      ]
+    }
+  }
+}
