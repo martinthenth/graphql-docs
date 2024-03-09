@@ -1,6 +1,6 @@
 # GraphQL-docs
 
-A beautiful GraphQL static documentation generator - based on Next.js and Golang.
+A beautiful GraphQL static documentation website - based on Next.js and Golang.
 
 ## Installation
 
