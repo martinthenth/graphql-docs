@@ -209,6 +209,7 @@ func parseInput(g *graph, i *ast.Definition) {
 	}
 	if len(i.Fields) == 0 {
 		fs = nil
+		fns = nil
 	}
 
 	g.Inputs[i.Name] = input{
@@ -240,6 +241,7 @@ func parseType(g *graph, t *ast.Definition) {
 	}
 	if len(t.Fields) == 0 {
 		fs = nil
+		fns = nil
 	}
 
 	g.Types[t.Name] = object{
@@ -267,6 +269,7 @@ func parseFieldArguments(fd *ast.FieldDefinition) (fieldArguments, []string) {
 	}
 	if len(fd.Arguments) == 0 {
 		fas = nil
+		fans = nil
 	}
 
 	return fas, fans

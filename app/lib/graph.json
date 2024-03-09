@@ -1,5 +1,5 @@
 {
-  "version": "2024-03-09T00:40:05Z",
+  "version": "2024-03-09T00:41:53Z",
   "directives": {},
   "enums": {
     "Permission": {
@@ -23,7 +23,7 @@
           "type": "String",
           "description": "The name of the flag to create",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "constraint": {
               "required": "true"
@@ -43,7 +43,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "constraint": {
               "required": "true"
@@ -63,7 +63,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "constraint": {
               "required": "true"
@@ -75,7 +75,7 @@
           "type": "Boolean",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
@@ -92,7 +92,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "constraint": {
               "required": "true"
@@ -104,7 +104,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "constraint": {
               "required": "true"
@@ -125,7 +125,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
@@ -141,7 +141,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "published": {
@@ -149,7 +149,7 @@
           "type": "Boolean",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
@@ -166,7 +166,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "lastName": {
@@ -174,7 +174,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
@@ -219,7 +219,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was created",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -231,7 +231,7 @@
           "type": "UUID",
           "description": "The user who created the flag",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -243,7 +243,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was deleted",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -255,7 +255,7 @@
           "type": "UUID",
           "description": "The user who deleted the flag",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -267,7 +267,7 @@
           "type": "Boolean",
           "description": "Whether the flag is enabled or not",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "enabledAt": {
@@ -275,7 +275,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was enabled",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -287,7 +287,7 @@
           "type": "UUID",
           "description": "The user who enabled the flag",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -299,7 +299,7 @@
           "type": "UUID",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -311,7 +311,7 @@
           "type": "String",
           "description": "The name of the flag",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "updatedAt": {
@@ -319,7 +319,7 @@
           "type": "DateTime",
           "description": "The date and time the flag was last updated",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -331,7 +331,7 @@
           "type": "UUID",
           "description": "The user who last updated the flag",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": {
             "authorization": {
               "permissions": "[ADMIN]"
@@ -736,7 +736,7 @@
           "type": "DateTime",
           "description": "Timestamp when the organization was created",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "deletedAt": {
@@ -744,7 +744,7 @@
           "type": "DateTime",
           "description": "Timestamp when the organization was deleted, null if not deleted",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "id": {
@@ -752,7 +752,7 @@
           "type": "UUID",
           "description": "Unique identifier of the organization",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "name": {
@@ -760,7 +760,7 @@
           "type": "String",
           "description": "Name of the organization",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "updatedAt": {
@@ -768,7 +768,7 @@
           "type": "DateTime",
           "description": "Timestamp when the organization was last updated",
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
@@ -788,7 +788,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "deletedAt": {
@@ -796,7 +796,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "id": {
@@ -804,7 +804,7 @@
           "type": "UUID",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "name": {
@@ -812,7 +812,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "published": {
@@ -820,7 +820,7 @@
           "type": "Boolean",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "updatedAt": {
@@ -828,7 +828,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
@@ -1040,7 +1040,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "deletedAt": {
@@ -1048,7 +1048,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "firstName": {
@@ -1056,7 +1056,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "id": {
@@ -1064,7 +1064,7 @@
           "type": "UUID",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "lastName": {
@@ -1072,7 +1072,7 @@
           "type": "String",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         },
         "updatedAt": {
@@ -1080,7 +1080,7 @@
           "type": "DateTime",
           "description": null,
           "arguments": null,
-          "argumentNames": [],
+          "argumentNames": null,
           "directives": null
         }
       },
