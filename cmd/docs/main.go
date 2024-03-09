@@ -39,14 +39,16 @@ type enumValue struct {
 
 type inputs map[string]input
 type input struct {
-	Description *string `json:"description"`
-	Fields      []field `json:"fields"`
+	Description *string  `json:"description"`
+	Fields      fields   `json:"fields"`
+	FieldNames  []string `json:"fieldNames"`
 }
 
 type objects map[string]object
 type object struct {
-	Description *string `json:"description"`
-	Fields      []field `json:"fields"`
+	Description *string  `json:"description"`
+	Fields      fields   `json:"fields"`
+	FieldNames  []string `json:"fieldNames"`
 }
 
 type scalars map[string]scalar
@@ -54,14 +56,16 @@ type scalar struct {
 	Description *string `json:"description"`
 }
 
+type fields map[string]field
 type field struct {
-	Name        string           `json:"name"`
-	Type        string           `json:"type"`
-	Description *string          `json:"description"`
-	Arguments   *fieldArguments  `json:"arguments"`
-	Directives  *fieldDirectives `json:"directives"`
+	Name          string           `json:"name"`
+	Type          string           `json:"type"`
+	Description   *string          `json:"description"`
+	Arguments     *fieldArguments  `json:"arguments"`
+	ArgumentNames []string         `json:"argumentNames"`
+	Directives    *fieldDirectives `json:"directives"`
 }
-type fieldArguments []fieldArgument
+type fieldArguments map[string]fieldArgument
 type fieldArgument struct {
 	Name        string                   `json:"name"`
 	Type        string                   `json:"type"`
@@ -188,17 +192,17 @@ func parseEnum(g *graph, e *ast.Definition) {
 }
 
 func parseInput(g *graph, i *ast.Definition) {
-	ifs := []field{}
+	ifs := fields{}
 	for _, fd := range i.Fields {
 		ifas := parseFieldArguments(fd)
 		ifds := parseFieldDirectives(fd)
-		ifs = append(ifs, field{
+		ifs[fd.Name] = field{
 			Name:        fd.Name,
 			Type:        fd.Type.String(),
 			Description: toPointer(fd.Description),
 			Arguments:   &ifas,
 			Directives:  &ifds,
-		})
+		}
 	}
 	if len(i.Fields) == 0 {
 		ifs = nil
@@ -211,7 +215,7 @@ func parseInput(g *graph, i *ast.Definition) {
 }
 
 func parseType(g *graph, t *ast.Definition) {
-	ofs := []field{}
+	ofs := fields{}
 	for _, tf := range t.Fields {
 		if strings.HasPrefix(tf.Name, "__") {
 			continue
@@ -219,13 +223,13 @@ func parseType(g *graph, t *ast.Definition) {
 
 		ofas := parseFieldArguments(tf)
 		ofds := parseFieldDirectives(tf)
-		ofs = append(ofs, field{
+		ofs[tf.Name] = field{
 			Name:        tf.Name,
 			Type:        tf.Type.String(),
 			Description: toPointer(tf.Description),
 			Arguments:   &ofas,
 			Directives:  &ofds,
-		})
+		}
 	}
 	if len(t.Fields) == 0 {
 		ofs = nil
@@ -245,11 +249,11 @@ func parseFieldArguments(fd *ast.FieldDefinition) fieldArguments {
 	ofas := fieldArguments{}
 	for _, tfa := range fd.Arguments {
 		ofads := parseFieldArgumentDirectives(tfa)
-		ofas = append(ofas, fieldArgument{
+		ofas[tfa.Name] = fieldArgument{
 			Type:        tfa.Type.String(),
 			Description: toPointer(tfa.Description),
 			Directives:  &ofads,
-		})
+		}
 	}
 	if len(fd.Arguments) == 0 {
 		ofas = nil
