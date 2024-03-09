@@ -70,14 +70,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
               <div className="bg-stone-800 text-white p-2">
                 <H5>Object</H5>
               </div>
-              <CodeBlock
-                content={buildExampleObject(
-                  (definition as APIType).fieldNames!.map(
-                    (fieldName) => (definition as APIType).fields![fieldName],
-                  ),
-                )}
-                language="json"
-              />
+              <CodeBlock content={buildExampleObject(definition as APIType)} language="json" />
             </div>
           )}
           {isQuery && (
@@ -148,18 +141,6 @@ function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
   );
 }
 
-function buildExampleObject(fields: APITypeField[]) {
-  const object: Record<string, unknown> = {};
-
-  fields.forEach((field) => {
-    const value = generateValue(field.type);
-
-    object[field.name] = value;
-  });
-
-  return JSON.stringify(object, null, 2);
-}
-
 function buildExampleGraphQL(action: "query" | "mutation", definition: APITypeField) {
   const name = definition.name;
   let args = definition.argumentNames?.reduce((acc, argumentName) => {
@@ -197,6 +178,21 @@ function buildExampleGraphQL(action: "query" | "mutation", definition: APITypeFi
     deletedAt
   }
 }`;
+}
+
+function buildExampleObject(definition: APIType) {
+  const object: Record<string, unknown> = {};
+
+  if (definition.fieldNames) {
+    definition.fieldNames.forEach((fieldName) => {
+      const field = definition.fields![fieldName];
+      const value = generateValue(field.type);
+
+      object[fieldName] = value;
+    });
+  }
+
+  return JSON.stringify(object, null, 2);
 }
 
 function buildExampleVariables(definition: APITypeField) {
