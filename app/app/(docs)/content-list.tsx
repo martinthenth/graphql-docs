@@ -11,16 +11,23 @@ interface DocsContentListProps extends HTMLAttributes<HTMLDivElement> {
 
 export function DocsContentList({ articles, title }: DocsContentListProps) {
   return (
-    <Grid gap="sm">
-      <H2>{title}</H2>
+    <Grid>
+      <div className="p-4">
+        <H2>{title}</H2>
+      </div>
       {articles.map((article) =>
         ["Query", "Mutation"].includes(article.type) ? (
           <DocsContentListItemAction
             key={article.id}
             definition={article.definition as APITypeField}
+            className="p-4 border-t"
           />
         ) : (
-          <DocsContentListItemType key={article.id} definition={article.definition as APIType} />
+          <DocsContentListItemType
+            key={article.id}
+            definition={article.definition as APIType}
+            className="p-4 border-t"
+          />
         ),
       )}
     </Grid>

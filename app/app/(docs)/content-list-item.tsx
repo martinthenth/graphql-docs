@@ -18,7 +18,7 @@ interface DocsContentListItemFieldProps extends HTMLAttributes<HTMLDivElement> {
   description: string | null;
 }
 
-export function DocsContentListItemType({ definition }: DocsContentListItemTypeProps) {
+export function DocsContentListItemType({ className, definition }: DocsContentListItemTypeProps) {
   const title = definition.description || "";
   const subtitle = "Attributes";
   const fields =
@@ -28,8 +28,11 @@ export function DocsContentListItemType({ definition }: DocsContentListItemTypeP
   const example = buildExample(fields);
 
   return (
-    <div>
-      <H3>{title}</H3>
+    <div className={className}>
+      <div>
+        <H3>{title}</H3>
+        <P>`Product`</P>
+      </div>
       <Grid gap="md" items="start" className="grid-cols-2">
         <Grid>
           <header className="py-2">
@@ -47,14 +50,22 @@ export function DocsContentListItemType({ definition }: DocsContentListItemTypeP
           </section>
         </Grid>
         <Grid>
-          <CodeBlock content={example} language="json" />
+          <div className="rounded-lg overflow-hidden">
+            <div className="bg-stone-800 text-white p-2">
+              <H5>The thing object</H5>
+            </div>
+            <CodeBlock content={example} language="json" />
+          </div>
         </Grid>
       </Grid>
     </div>
   );
 }
 
-export function DocsContentListItemAction({ definition }: DocsContentListItemActionProps) {
+export function DocsContentListItemAction({
+  className,
+  definition,
+}: DocsContentListItemActionProps) {
   const title = definition.description || "";
   const subtitle = "Parameters";
   const fields =
@@ -64,8 +75,11 @@ export function DocsContentListItemAction({ definition }: DocsContentListItemAct
   const example = buildExample(fields);
 
   return (
-    <div>
-      <H3>{title}</H3>
+    <div className={className}>
+      <div>
+        <H3>{title}</H3>
+        <P>`getProductById`</P>
+      </div>
       <Grid gap="md" items="start" className="grid-cols-2">
         <Grid>
           <header className="py-2">
@@ -82,8 +96,19 @@ export function DocsContentListItemAction({ definition }: DocsContentListItemAct
             ))}
           </section>
         </Grid>
-        <Grid>
-          <CodeBlock content={example} language="json" />
+        <Grid gap="md">
+          <div className="rounded-lg overflow-hidden">
+            <div className="bg-stone-800 text-white p-2">
+              <H5>Request</H5>
+            </div>
+            <CodeBlock content={example} language="json" />
+          </div>
+          <div className="rounded-lg overflow-hidden">
+            <div className="bg-stone-800 text-white p-2">
+              <H5>Variables</H5>
+            </div>
+            <CodeBlock content={example} language="json" />
+          </div>
         </Grid>
       </Grid>
     </div>

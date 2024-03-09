@@ -3,7 +3,7 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 
 export interface CodeBlockProps extends HTMLAttributes<HTMLDivElement> {
   content: string;
-  language: "json";
+  language: "graphql" | "json";
 }
 
 export function CodeBlock({ content, language }: CodeBlockProps) {

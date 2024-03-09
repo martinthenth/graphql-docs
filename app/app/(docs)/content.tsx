@@ -12,13 +12,11 @@ export function DocsContent({ className, docs }: DocsContentProps) {
 
   return (
     <main className={classNames}>
-      <div className="p-4">
-        <Grid gap="lg">
-          {docs.sections.map((section) => (
-            <DocsContentList key={section.id} title={section.title} articles={section.articles} />
-          ))}
-        </Grid>
-      </div>
+      <Grid gap="lg">
+        {docs.sections.map((section) => (
+          <DocsContentList key={section.id} title={section.title} articles={section.articles} />
+        ))}
+      </Grid>
     </main>
   );
 }
