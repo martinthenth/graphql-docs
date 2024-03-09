@@ -38,26 +38,59 @@ export function ApiContentList({ articles, title }: ApiContentListProps) {
   return (
     <Grid gap="sm">
       <H2>{title}</H2>
-      {articles.map((article) => (
-        <ApiContentListItem
-          key={article.id}
-          example={code}
-          subtitle={["Query", "Mutation"].includes(article.type) ? "Parameters" : "Attributes"}
-          title={article.definition!.description || ""}
-        >
-          {Object.entries(
-            (article.definition as APIType).fields ||
-              (article.definition as APITypeField).arguments,
-          ).map(([fieldName, field]) => (
-            <ApiContentListItemField
-              key={article.id + fieldName}
-              description={field.description}
-              name={fieldName}
-              type={field.type}
-            />
-          ))}
-        </ApiContentListItem>
-      ))}
+      {articles.map((article) =>
+        ["Query", "Mutation"].includes(article.type) ? (
+          <ApiContentListItemAction article={article} />
+        ) : (
+          <ApiContentListItemType article={article} />
+        ),
+      )}
     </Grid>
+  );
+}
+
+function ApiContentListItemAction({ article }: { article: APIDocsArticle }) {
+  const definition = article.definition as APITypeField;
+  const title = definition.description || "";
+  const subtitle = "Parameters";
+  const fields =
+    definition.arguments && definition.argumentNames
+      ? definition.argumentNames.map((argumentName) => definition.arguments![argumentName])
+      : [];
+
+  return (
+    <ApiContentListItem key={article.id} example={code} subtitle={subtitle} title={title}>
+      {fields.map((field) => (
+        <ApiContentListItemField
+          key={article.id + field.name}
+          description={field.description}
+          name={field.name}
+          type={field.type}
+        />
+      ))}
+    </ApiContentListItem>
+  );
+}
+
+function ApiContentListItemType({ article }: { article: APIDocsArticle }) {
+  const definition = article.definition as APIType;
+  const title = definition.description || "";
+  const subtitle = "Attributes";
+  const fields =
+    definition.fields && definition.fieldNames
+      ? definition.fieldNames.map((fieldName) => definition.fields![fieldName])
+      : [];
+
+  return (
+    <ApiContentListItem key={article.id} example={code} subtitle={subtitle} title={title}>
+      {fields.map((field) => (
+        <ApiContentListItemField
+          key={article.id + field.name}
+          description={field.description}
+          name={field.name}
+          type={field.type}
+        />
+      ))}
+    </ApiContentListItem>
   );
 }

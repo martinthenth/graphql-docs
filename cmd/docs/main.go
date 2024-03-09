@@ -262,6 +262,7 @@ func parseFieldArguments(fd *ast.FieldDefinition) (fieldArguments, []string) {
 		fads := parseFieldArgumentDirectives(fda)
 		fans = append(fans, fda.Name)
 		fas[fda.Name] = fieldArgument{
+			Name:        fda.Name,
 			Type:        fda.Type.String(),
 			Description: toPointer(fda.Description),
 			Directives:  &fads,

@@ -1,5 +1,5 @@
 {
-  "version": "2024-03-09T00:41:53Z",
+  "version": "2024-03-09T01:28:32Z",
   "directives": {},
   "enums": {
     "Permission": {
@@ -362,7 +362,7 @@
           "description": "Create a flag",
           "arguments": {
             "input": {
-              "name": "",
+              "name": "input",
               "type": "CreateFlagInput",
               "description": null,
               "directives": {
@@ -372,7 +372,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -399,7 +399,7 @@
           "description": "Create an organization",
           "arguments": {
             "input": {
-              "name": "",
+              "name": "input",
               "type": "CreateOrganizationInput",
               "description": "Input for creating an organization",
               "directives": {
@@ -409,7 +409,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": "Unique identifier of the request",
               "directives": {
@@ -431,7 +431,7 @@
           "description": "Create a project",
           "arguments": {
             "input": {
-              "name": "",
+              "name": "input",
               "type": "CreateProjectInput",
               "description": null,
               "directives": {
@@ -441,7 +441,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -463,7 +463,7 @@
           "description": "Create a user",
           "arguments": {
             "input": {
-              "name": "",
+              "name": "input",
               "type": "CreateUserInput",
               "description": null,
               "directives": {
@@ -473,7 +473,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -495,7 +495,7 @@
           "description": "Delete an organization",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": "Unique identifier of the organization",
               "directives": {
@@ -505,7 +505,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": "Unique identifier of the request",
               "directives": {
@@ -527,7 +527,7 @@
           "description": "Delete a project",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -537,7 +537,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -559,7 +559,7 @@
           "description": "Delete a user",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -569,7 +569,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -591,7 +591,7 @@
           "description": "Update an organization",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": "Unique identifier of the organization",
               "directives": {
@@ -601,7 +601,7 @@
               }
             },
             "input": {
-              "name": "",
+              "name": "input",
               "type": "UpdateOrganizationInput",
               "description": "Input for updating an organization",
               "directives": {
@@ -611,7 +611,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": "Unique identifier of the request",
               "directives": {
@@ -634,7 +634,7 @@
           "description": "Update a project",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -644,7 +644,7 @@
               }
             },
             "input": {
-              "name": "",
+              "name": "input",
               "type": "UpdateProjectInput",
               "description": null,
               "directives": {
@@ -654,7 +654,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -677,7 +677,7 @@
           "description": "Update a user",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -687,7 +687,7 @@
               }
             },
             "input": {
-              "name": "",
+              "name": "input",
               "type": "UpdateUserInput",
               "description": null,
               "directives": {
@@ -697,7 +697,7 @@
               }
             },
             "nonce": {
-              "name": "",
+              "name": "nonce",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -850,7 +850,7 @@
           "description": "Get a flag by name",
           "arguments": {
             "name": {
-              "name": "",
+              "name": "name",
               "type": "String",
               "description": null,
               "directives": {
@@ -871,7 +871,7 @@
           "description": "Get an organization by id",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": "Unique identifier of an organization",
               "directives": {
@@ -892,7 +892,7 @@
           "description": "Get a project by id",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -913,7 +913,7 @@
           "description": "Get a user by id",
           "arguments": {
             "id": {
-              "name": "",
+              "name": "id",
               "type": "UUID",
               "description": null,
               "directives": {
@@ -934,19 +934,19 @@
           "description": "List the organizations",
           "arguments": {
             "after": {
-              "name": "",
+              "name": "after",
               "type": "UUID",
               "description": "Unique identifier of an organization to start after",
               "directives": null
             },
             "limit": {
-              "name": "",
+              "name": "limit",
               "type": "Int",
               "description": "Number of organizations to return",
               "directives": null
             },
             "start": {
-              "name": "",
+              "name": "start",
               "type": "Int",
               "description": "Number of organizations to start after",
               "directives": null
@@ -965,19 +965,19 @@
           "description": "List the projects",
           "arguments": {
             "after": {
-              "name": "",
+              "name": "after",
               "type": "UUID",
               "description": null,
               "directives": null
             },
             "limit": {
-              "name": "",
+              "name": "limit",
               "type": "Int",
               "description": null,
               "directives": null
             },
             "start": {
-              "name": "",
+              "name": "start",
               "type": "Int",
               "description": null,
               "directives": null
@@ -996,19 +996,19 @@
           "description": "List the users",
           "arguments": {
             "after": {
-              "name": "",
+              "name": "after",
               "type": "UUID",
               "description": null,
               "directives": null
             },
             "limit": {
-              "name": "",
+              "name": "limit",
               "type": "Int",
               "description": null,
               "directives": null
             },
             "start": {
-              "name": "",
+              "name": "start",
               "type": "Int",
               "description": null,
               "directives": null

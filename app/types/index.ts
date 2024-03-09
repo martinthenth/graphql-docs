@@ -14,12 +14,14 @@ export type APIInputs = Record<string, APIInput>;
 export type APIInput = { description: string | null; fields: APIInputFields; fieldNames: string[] };
 export type APIInputFields = Record<string, APIInputField>;
 export type APIInputField = {
+  name: string;
   type: string;
   description: string | null;
-  arguments: APIInputFieldArgument[] | null;
+  arguments: APIInputFieldArguments | null;
   argumentNames: string[] | null;
   directives: APIInputFieldDirectives;
 };
+export type APIInputFieldArguments = Record<string, APIInputFieldArgument>;
 export type APIInputFieldArgument = {
   type: string;
   description: string | null;
@@ -30,16 +32,23 @@ export type APIInputFieldArgumentDirective = { required?: string };
 export type APIInputFieldDirectives = Record<string, APIInputFieldDirective>;
 export type APIInputFieldDirective = { required?: string };
 export type APITypes = Record<string, APIType>;
-export type APIType = { description: string | null; fields: APITypeFields; fieldNames: string[] };
+export type APIType = {
+  description: string | null;
+  fields: APITypeFields | null;
+  fieldNames: string[] | null;
+};
 export type APITypeFields = Record<string, APITypeField>;
 export type APITypeField = {
+  name: string;
   type: string;
   description: string | null;
-  arguments: APITypeFieldArgument[] | null;
+  arguments: APITypeFieldArguments | null;
   argumentNames: string[] | null;
   directives: APITypeFieldDirectives;
 };
+export type APITypeFieldArguments = Record<string, APITypeFieldArgument>;
 export type APITypeFieldArgument = {
+  name: string;
   type: string;
   description: string | null;
   directives: APITypeFieldArgumentDirectives | null;
