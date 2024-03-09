@@ -1,4 +1,4 @@
-version: "2024-03-09T16:24:26Z"
+version: "2024-03-09T22:45:09Z"
 directives: {}
 enums:
   Permission:
@@ -154,7 +154,7 @@ scalars:
     description: A RFC 4122 compliant UUID
 types:
   Flag:
-    description: null
+    description: The flag object
     fields:
       createdAt:
         name: createdAt
@@ -165,28 +165,10 @@ types:
         directives:
           authorization:
             permissions: '[ADMIN]'
-      createdByUserId:
-        name: createdByUserId
-        type: UUID
-        description: The user who created the flag
-        arguments: {}
-        argumentNames: []
-        directives:
-          authorization:
-            permissions: '[ADMIN]'
       deletedAt:
         name: deletedAt
         type: DateTime
         description: The date and time the flag was deleted
-        arguments: {}
-        argumentNames: []
-        directives:
-          authorization:
-            permissions: '[ADMIN]'
-      deletedByUserId:
-        name: deletedByUserId
-        type: UUID
-        description: The user who deleted the flag
         arguments: {}
         argumentNames: []
         directives:
@@ -208,19 +190,10 @@ types:
         directives:
           authorization:
             permissions: '[ADMIN]'
-      enabledByUserId:
-        name: enabledByUserId
-        type: UUID
-        description: The user who enabled the flag
-        arguments: {}
-        argumentNames: []
-        directives:
-          authorization:
-            permissions: '[ADMIN]'
       id:
         name: id
         type: UUID
-        description: null
+        description: Unique identifier of the flag
         arguments: {}
         argumentNames: []
         directives:
@@ -242,27 +215,14 @@ types:
         directives:
           authorization:
             permissions: '[ADMIN]'
-      updatedByUserId:
-        name: updatedByUserId
-        type: UUID
-        description: The user who last updated the flag
-        arguments: {}
-        argumentNames: []
-        directives:
-          authorization:
-            permissions: '[ADMIN]'
     fieldNames:
       - id
       - name
       - enabled
       - enabledAt
-      - enabledByUserId
       - createdAt
-      - createdByUserId
       - updatedAt
-      - updatedByUserId
       - deletedAt
-      - deletedByUserId
   Mutation:
     description: null
     fields:
@@ -274,14 +234,14 @@ types:
           input:
             name: input
             type: CreateFlagInput
-            description: null
+            description: Input for creating a flag
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -361,6 +321,29 @@ types:
           - input
           - nonce
         directives: {}
+      deleteFlag:
+        name: deleteFlag
+        type: Flag
+        description: Delete a flag
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of the flag
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - nonce
+        directives: {}
       deleteOrganization:
         name: deleteOrganization
         type: Organization
@@ -428,6 +411,37 @@ types:
                 required: "true"
         argumentNames:
           - id
+          - nonce
+        directives: {}
+      toggleFlag:
+        name: toggleFlag
+        type: Flag
+        description: Toggle a flag
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of the flag
+            directives:
+              constraint:
+                required: "true"
+          name:
+            name: name
+            type: String
+            description: The name of the flag to toggle
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - name
           - nonce
         directives: {}
       updateOrganization:
@@ -525,6 +539,8 @@ types:
         directives: {}
     fieldNames:
       - createFlag
+      - toggleFlag
+      - deleteFlag
       - createOrganization
       - updateOrganization
       - deleteOrganization

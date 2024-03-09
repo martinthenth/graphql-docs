@@ -26,6 +26,16 @@ function buildDocs(api: API) {
     version: api.version,
     sections: [
       {
+        title: "Flags",
+        articles: [
+          { type: "Flag", definition: api.types.Flag },
+          { type: "Query", definition: api.types.Query.fields!["getFlagByName"] },
+          { type: "Mutation", definition: api.types.Mutation.fields!["createFlag"] },
+          { type: "Mutation", definition: api.types.Mutation.fields!["toggleFlag"] },
+          { type: "Mutation", definition: api.types.Mutation.fields!["deleteFlag"] },
+        ].map((article) => ({ ...article, id: uuid4() })),
+      },
+      {
         title: "Organizations",
         articles: [
           { type: "Organization", definition: api.types.Organization },

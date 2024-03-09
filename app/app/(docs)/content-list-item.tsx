@@ -102,7 +102,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Mutation</H5>
                 </div>
-                <CodeBlock content={buildExampleMutation([])} language="json" />
+                <CodeBlock content={buildExampleMutation([])} language="graphql" />
               </div>
               <div className="rounded-lg overflow-hidden">
                 <div className="bg-stone-800 text-white p-2">
@@ -126,7 +126,7 @@ function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
           <H5>
             <code>{field.name}</code>
           </H5>
-          <P color="tertiary" size="sm">
+          <P color="tertiary" size="sm" className="pb-px">
             {field.type}
           </P>
         </Flex>
@@ -166,7 +166,7 @@ function buildExampleType(fields: APITypeField[]) {
 }
 
 function buildExampleQuery(fields: APITypeFieldArgument[]) {
-  return `query(id: UUID) {
+  return `query (id: UUID) {
   id
   name
   email
@@ -177,7 +177,7 @@ function buildExampleQuery(fields: APITypeFieldArgument[]) {
 }
 
 function buildExampleMutation(fields: APITypeFieldArgument[]) {
-  return `query(id: UUID) {
+  return `query (id: UUID) {
   id
   name
   email
