@@ -1,10 +1,10 @@
 "use client";
 
+import { APIDocsArticle } from "@/types";
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 import { HTMLAttributes, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { P } from "@/components/ui/typography";
-import { APIDocsArticle } from "./page";
 
 interface ApiSidebarListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;

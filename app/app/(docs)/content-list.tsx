@@ -1,8 +1,8 @@
+import { APIDocsArticle, APIType, APITypeField } from "@/types";
 import { HTMLAttributes } from "react";
 import { Grid } from "@/components/ui/grid";
 import { H2 } from "@/components/ui/typography";
 import { ApiContentListItem, ApiContentListItemField } from "./content-list-item";
-import { APIDocsArticle, APIType, APITypeField } from "./page";
 
 interface ApiContentListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;

@@ -1,6 +1,6 @@
 import { uuid4 } from "@/lib/uuid";
+import { APIDocs } from "@/types";
 import { HTMLAttributes } from "react";
-import { APIDocs } from "./page";
 import { ApiSidebarList } from "./sidebar-list";
 
 interface ApiSidebarProps extends HTMLAttributes<HTMLDivElement> {

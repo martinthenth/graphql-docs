@@ -1,7 +1,7 @@
+import { APIDocs } from "@/types";
 import { HTMLAttributes } from "react";
 import { Grid } from "@/components/ui/grid";
 import { ApiContentList } from "./content-list";
-import { APIDocs } from "./page";
 
 interface ApiContentProps extends HTMLAttributes<HTMLDivElement> {
   docs: APIDocs;
