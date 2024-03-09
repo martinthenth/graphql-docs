@@ -31,9 +31,7 @@
           }
         }
       },
-      "fieldNames": [
-        "name"
-      ]
+      "fieldNames": ["name"]
     },
     "CreateOrganizationInput": {
       "description": null,
@@ -51,9 +49,7 @@
           }
         }
       },
-      "fieldNames": [
-        "name"
-      ]
+      "fieldNames": ["name"]
     },
     "CreateProjectInput": {
       "description": null,
@@ -79,10 +75,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "name",
-        "published"
-      ]
+      "fieldNames": ["name", "published"]
     },
     "CreateUserInput": {
       "description": null,
@@ -112,10 +105,7 @@
           }
         }
       },
-      "fieldNames": [
-        "firstName",
-        "lastName"
-      ]
+      "fieldNames": ["firstName", "lastName"]
     },
     "UpdateOrganizationInput": {
       "description": null,
@@ -129,9 +119,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "name"
-      ]
+      "fieldNames": ["name"]
     },
     "UpdateProjectInput": {
       "description": null,
@@ -153,10 +141,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "name",
-        "published"
-      ]
+      "fieldNames": ["name", "published"]
     },
     "UpdateUserInput": {
       "description": null,
@@ -178,10 +163,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "firstName",
-        "lastName"
-      ]
+      "fieldNames": ["firstName", "lastName"]
     }
   },
   "scalars": {
@@ -382,10 +364,7 @@
               }
             }
           },
-          "argumentNames": [
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["input", "nonce"],
           "directives": {
             "authorization": {
               "authenticated": "true",
@@ -419,10 +398,7 @@
               }
             }
           },
-          "argumentNames": [
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["input", "nonce"],
           "directives": null
         },
         "createProject": {
@@ -451,10 +427,7 @@
               }
             }
           },
-          "argumentNames": [
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["input", "nonce"],
           "directives": null
         },
         "createUser": {
@@ -483,10 +456,7 @@
               }
             }
           },
-          "argumentNames": [
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["input", "nonce"],
           "directives": null
         },
         "deleteOrganization": {
@@ -515,10 +485,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id",
-            "nonce"
-          ],
+          "argumentNames": ["id", "nonce"],
           "directives": null
         },
         "deleteProject": {
@@ -547,10 +514,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id",
-            "nonce"
-          ],
+          "argumentNames": ["id", "nonce"],
           "directives": null
         },
         "deleteUser": {
@@ -579,10 +543,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id",
-            "nonce"
-          ],
+          "argumentNames": ["id", "nonce"],
           "directives": null
         },
         "updateOrganization": {
@@ -621,11 +582,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id",
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["id", "input", "nonce"],
           "directives": null
         },
         "updateProject": {
@@ -664,11 +621,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id",
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["id", "input", "nonce"],
           "directives": null
         },
         "updateUser": {
@@ -707,11 +660,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id",
-            "input",
-            "nonce"
-          ],
+          "argumentNames": ["id", "input", "nonce"],
           "directives": null
         }
       },
@@ -772,13 +721,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "id",
-        "name",
-        "createdAt",
-        "updatedAt",
-        "deletedAt"
-      ]
+      "fieldNames": ["id", "name", "createdAt", "updatedAt", "deletedAt"]
     },
     "Project": {
       "description": "The project object",
@@ -832,14 +775,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "id",
-        "name",
-        "published",
-        "createdAt",
-        "updatedAt",
-        "deletedAt"
-      ]
+      "fieldNames": ["id", "name", "published", "createdAt", "updatedAt", "deletedAt"]
     },
     "Query": {
       "description": null,
@@ -860,9 +796,7 @@
               }
             }
           },
-          "argumentNames": [
-            "name"
-          ],
+          "argumentNames": ["name"],
           "directives": null
         },
         "getOrganizationById": {
@@ -881,9 +815,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id"
-          ],
+          "argumentNames": ["id"],
           "directives": null
         },
         "getProjectById": {
@@ -902,9 +834,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id"
-          ],
+          "argumentNames": ["id"],
           "directives": null
         },
         "getUserById": {
@@ -923,9 +853,7 @@
               }
             }
           },
-          "argumentNames": [
-            "id"
-          ],
+          "argumentNames": ["id"],
           "directives": null
         },
         "listOrganizations": {
@@ -952,11 +880,7 @@
               "directives": null
             }
           },
-          "argumentNames": [
-            "after",
-            "start",
-            "limit"
-          ],
+          "argumentNames": ["after", "start", "limit"],
           "directives": null
         },
         "listProjects": {
@@ -983,11 +907,7 @@
               "directives": null
             }
           },
-          "argumentNames": [
-            "after",
-            "start",
-            "limit"
-          ],
+          "argumentNames": ["after", "start", "limit"],
           "directives": null
         },
         "listUsers": {
@@ -1014,11 +934,7 @@
               "directives": null
             }
           },
-          "argumentNames": [
-            "after",
-            "start",
-            "limit"
-          ],
+          "argumentNames": ["after", "start", "limit"],
           "directives": null
         }
       },
@@ -1084,14 +1000,7 @@
           "directives": null
         }
       },
-      "fieldNames": [
-        "id",
-        "firstName",
-        "lastName",
-        "createdAt",
-        "updatedAt",
-        "deletedAt"
-      ]
+      "fieldNames": ["id", "firstName", "lastName", "createdAt", "updatedAt", "deletedAt"]
     }
   }
 }

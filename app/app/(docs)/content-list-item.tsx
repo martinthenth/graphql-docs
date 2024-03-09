@@ -109,7 +109,7 @@ function ApiContentListItemField({ description, name, type }: ApiContentListItem
 }
 
 function buildExample(fields: APITypeField[] | APITypeFieldArgument[]) {
-  let example: Record<string, any> = {};
+  const example: Record<string, unknown> = {};
 
   fields.forEach((field) => {
     const value = (() => {
