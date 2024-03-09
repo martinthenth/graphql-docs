@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"bytes"
 	"fmt"
 	"log"
 	"os"
@@ -11,66 +11,67 @@ import (
 
 	"github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
+	"gopkg.in/yaml.v3"
 )
 
 const (
 	inputFolder = "./graph"
-	outputFile  = "./app/lib/graph.json"
+	outputFile  = "./app/lib/graph.yaml"
 )
 
 type graph struct {
-	Version    string                 `json:"version"`
-	Directives map[string]interface{} `json:"directives"`
-	Enums      enums                  `json:"enums"`
-	Inputs     inputs                 `json:"inputs"`
-	Scalars    scalars                `json:"scalars"`
-	Types      objects                `json:"types"`
+	Version    string                 `yaml:"version"`
+	Directives map[string]interface{} `yaml:"directives"`
+	Enums      enums                  `yaml:"enums"`
+	Inputs     inputs                 `yaml:"inputs"`
+	Scalars    scalars                `yaml:"scalars"`
+	Types      objects                `yaml:"types"`
 }
 
 type enums map[string]enum
 type enum struct {
-	Values      *enumValues `json:"values"`
-	Description *string     `json:"description"`
+	Values      *enumValues `yaml:"values"`
+	Description *string     `yaml:"description"`
 }
 type enumValues map[string]enumValue
 type enumValue struct {
-	Description *string `json:"description"`
+	Description *string `yaml:"description"`
 }
 
 type inputs map[string]input
 type input struct {
-	Description *string  `json:"description"`
-	Fields      fields   `json:"fields"`
-	FieldNames  []string `json:"fieldNames"`
+	Description *string  `yaml:"description"`
+	Fields      fields   `yaml:"fields"`
+	FieldNames  []string `yaml:"fieldNames"`
 }
 
 type objects map[string]object
 type object struct {
-	Description *string  `json:"description"`
-	Fields      fields   `json:"fields"`
-	FieldNames  []string `json:"fieldNames"`
+	Description *string  `yaml:"description"`
+	Fields      fields   `yaml:"fields"`
+	FieldNames  []string `yaml:"fieldNames"`
 }
 
 type scalars map[string]scalar
 type scalar struct {
-	Description *string `json:"description"`
+	Description *string `yaml:"description"`
 }
 
 type fields map[string]field
 type field struct {
-	Name          string           `json:"name"`
-	Type          string           `json:"type"`
-	Description   *string          `json:"description"`
-	Arguments     *fieldArguments  `json:"arguments"`
-	ArgumentNames []string         `json:"argumentNames"`
-	Directives    *fieldDirectives `json:"directives"`
+	Name          string           `yaml:"name"`
+	Type          string           `yaml:"type"`
+	Description   *string          `yaml:"description"`
+	Arguments     *fieldArguments  `yaml:"arguments"`
+	ArgumentNames []string         `yaml:"argumentNames"`
+	Directives    *fieldDirectives `yaml:"directives"`
 }
 type fieldArguments map[string]fieldArgument
 type fieldArgument struct {
-	Name        string                   `json:"name"`
-	Type        string                   `json:"type"`
-	Description *string                  `json:"description"`
-	Directives  *fieldArgumentDirectives `json:"directives"`
+	Name        string                   `yaml:"name"`
+	Type        string                   `yaml:"type"`
+	Description *string                  `yaml:"description"`
+	Directives  *fieldArgumentDirectives `yaml:"directives"`
 }
 type fieldDirectives map[string]fieldDirective
 type fieldDirective map[string]interface{}
@@ -157,7 +158,11 @@ func buildGraph(s *ast.Schema) (*graph, error) {
 }
 
 func writeGraph(g *graph) (*graph, error) {
-	gj, err := json.MarshalIndent(g, "", "  ")
+	gb := bytes.Buffer{}
+	yamlEncoder := yaml.NewEncoder(&gb)
+	yamlEncoder.SetIndent(2)
+
+	err := yamlEncoder.Encode(&g)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +173,7 @@ func writeGraph(g *graph) (*graph, error) {
 	}
 	defer f.Close()
 
-	_, err = f.WriteString(string(gj) + "\n")
+	_, err = f.WriteString(gb.String() + "\n")
 	if err != nil {
 		return nil, err
 	}
