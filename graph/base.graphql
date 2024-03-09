@@ -60,7 +60,10 @@ type Mutation {
 
 type Query {
   "Get a flag by name"
-  getFlagByName(name: String @constraint(required: true)): Flag
+  getFlagByName(
+    "The name of the flag"
+    name: String @constraint(required: true)
+  ): Flag
 }
 
 "The flag object"

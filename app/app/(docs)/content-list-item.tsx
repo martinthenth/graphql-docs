@@ -86,7 +86,10 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Query</H5>
                 </div>
-                <CodeBlock content={buildExampleQuery([])} language="graphql" />
+                <CodeBlock
+                  content={buildExampleQuery(definition as APITypeField)}
+                  language="graphql"
+                />
               </div>
               <div className="rounded-lg overflow-hidden">
                 <div className="bg-stone-800 text-white p-2">
@@ -102,7 +105,10 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Mutation</H5>
                 </div>
-                <CodeBlock content={buildExampleMutation([])} language="graphql" />
+                <CodeBlock
+                  content={buildExampleMutation(definition as APITypeField)}
+                  language="graphql"
+                />
               </div>
               <div className="rounded-lg overflow-hidden">
                 <div className="bg-stone-800 text-white p-2">
@@ -165,25 +171,81 @@ function buildExampleType(fields: APITypeField[]) {
   return JSON.stringify(example, null, 2);
 }
 
-function buildExampleQuery(fields: APITypeFieldArgument[]) {
-  return `query (id: UUID) {
-  id
-  name
-  email
-  createdAt
-  updatedAt
-  deletedAt
+function buildExampleQuery(definition: APITypeField) {
+  const name = definition.name;
+  let args = definition.argumentNames?.reduce((acc, argumentName) => {
+    if (!acc) return argumentName;
+    return `${acc}$${argumentName}: ${definition.arguments![argumentName].type}, `;
+  }, "(");
+  if (args == "(") {
+    args = "";
+  } else {
+    if (args?.endsWith(", ")) {
+      args = args.slice(0, -2);
+      args = args + ")";
+    }
+  }
+
+  let argRefs = definition.argumentNames?.reduce((acc, argumentName) => {
+    if (!acc) return argumentName;
+    return `${acc}${argumentName}: $${argumentName}, `;
+  }, "(");
+  if (argRefs == "(") {
+    argRefs = "";
+  } else {
+    if (argRefs?.endsWith(", ")) {
+      argRefs = argRefs.slice(0, -2);
+      argRefs = argRefs + ")";
+    }
+  }
+
+  return `query ${name.charAt(0).toUpperCase() + name.slice(1)}${args} {
+  ${name}${argRefs} {
+    id
+    name
+    createdAt
+    updatedAt
+    deletedAt
+  }
 }`;
 }
 
-function buildExampleMutation(fields: APITypeFieldArgument[]) {
-  return `query (id: UUID) {
-  id
-  name
-  email
-  createdAt
-  updatedAt
-  deletedAt
+function buildExampleMutation(definition: APITypeField) {
+  const name = definition.name;
+  let args = definition.argumentNames?.reduce((acc, argumentName) => {
+    if (!acc) return argumentName;
+    return `${acc}$${argumentName}: ${definition.arguments![argumentName].type}, `;
+  }, "(");
+  if (args == "(") {
+    args = "";
+  } else {
+    if (args?.endsWith(", ")) {
+      args = args.slice(0, -2);
+      args = args + ")";
+    }
+  }
+
+  let argRefs = definition.argumentNames?.reduce((acc, argumentName) => {
+    if (!acc) return argumentName;
+    return `${acc}${argumentName}: $${argumentName}, `;
+  }, "(");
+  if (argRefs == "(") {
+    argRefs = "";
+  } else {
+    if (argRefs?.endsWith(", ")) {
+      argRefs = argRefs.slice(0, -2);
+      argRefs = argRefs + ")";
+    }
+  }
+
+  return `mutation ${name.charAt(0).toUpperCase() + name.slice(1)}${args} {
+  ${name}${argRefs} {
+    id
+    name
+    createdAt
+    updatedAt
+    deletedAt
+  }
 }`;
 }
 

@@ -1,4 +1,4 @@
-version: "2024-03-09T22:45:09Z"
+version: "2024-03-09T22:52:29Z"
 directives: {}
 enums:
   Permission:
@@ -657,7 +657,7 @@ types:
           name:
             name: name
             type: String
-            description: null
+            description: The name of the flag
             directives:
               constraint:
                 required: "true"
