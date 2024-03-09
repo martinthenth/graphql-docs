@@ -16,15 +16,15 @@ export type APIEnum = { description: string | null; values: APIEnumValues };
 export type APIEnumValues = Record<string, APIEnumValue>;
 export type APIEnumValue = { description: string | null };
 export type APIInputs = Record<string, APIInput>;
-export type APIInput = { description: string | null; fields: APIInputFields };
+export type APIInput = { description: string | null; fields: APIInputFields; fieldNames: string[] };
 export type APIInputFields = Record<string, APIInputField>;
 export type APIInputField = {
   type: string;
   description: string | null;
-  arguments: APIInputFieldArguments | null;
+  arguments: APIInputFieldArgument[] | null;
+  argumentNames: string[] | null;
   directives: APIInputFieldDirectives;
 };
-export type APIInputFieldArguments = Record<string, APIInputFieldArgument>;
 export type APIInputFieldArgument = {
   type: string;
   description: string | null;
@@ -35,15 +35,15 @@ export type APIInputFieldArgumentDirective = { required?: string };
 export type APIInputFieldDirectives = Record<string, APIInputFieldDirective>;
 export type APIInputFieldDirective = { required?: string };
 export type APITypes = Record<string, APIType>;
-export type APIType = { description: string | null; fields: APITypeFields };
+export type APIType = { description: string | null; fields: APITypeFields; fieldNames: string[] };
 export type APITypeFields = Record<string, APITypeField>;
 export type APITypeField = {
   type: string;
   description: string | null;
-  arguments: APITypeFieldArguments | null;
+  arguments: APITypeFieldArgument[] | null;
+  argumentNames: string[] | null;
   directives: APITypeFieldDirectives;
 };
-export type APITypeFieldArguments = Record<string, APITypeFieldArgument>;
 export type APITypeFieldArgument = {
   type: string;
   description: string | null;
@@ -65,8 +65,8 @@ export default async function ApiPage() {
 
   return (
     <>
-      {/* <ApiSidebar docs={docs} className="w-64" />
-      <ApiContent docs={docs} className="w-full" /> */}
+      <ApiSidebar docs={docs} className="w-64" />
+      <ApiContent docs={docs} className="w-full" />
     </>
   );
 }
@@ -87,18 +87,6 @@ async function generateApiDocs(filePath: string) {
           { type: "Mutation", definition: api.types.Mutation.fields["createOrganization"] },
           { type: "Mutation", definition: api.types.Mutation.fields["updateOrganization"] },
           { type: "Mutation", definition: api.types.Mutation.fields["deleteOrganization"] },
-        ].map((article) => ({ ...article, id: uuid4() })),
-      },
-      {
-        id: uuid4(),
-        title: "Products",
-        articles: [
-          { type: "Product", definition: api.types.Product },
-          { type: "Query", definition: api.types.Query.fields["listProducts"] },
-          { type: "Query", definition: api.types.Query.fields["getProductById"] },
-          { type: "Mutation", definition: api.types.Mutation.fields["createProduct"] },
-          { type: "Mutation", definition: api.types.Mutation.fields["updateProduct"] },
-          { type: "Mutation", definition: api.types.Mutation.fields["deleteProduct"] },
         ].map((article) => ({ ...article, id: uuid4() })),
       },
       {
