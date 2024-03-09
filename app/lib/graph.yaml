@@ -1,0 +1,846 @@
+version: "2024-03-09T22:52:29Z"
+directives: {}
+enums:
+  Permission:
+    values:
+      ADMIN:
+        description: An authenticated admin user
+      USER:
+        description: An authenticated user
+    description: An enum describing the permissions a user can have
+inputs:
+  CreateFlagInput:
+    description: An input to create a flag
+    fields:
+      name:
+        name: name
+        type: String
+        description: The name of the flag to create
+        arguments: {}
+        argumentNames: []
+        directives:
+          constraint:
+            required: "true"
+    fieldNames:
+      - name
+  CreateOrganizationInput:
+    description: null
+    fields:
+      name:
+        name: name
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives:
+          constraint:
+            required: "true"
+    fieldNames:
+      - name
+  CreateProjectInput:
+    description: null
+    fields:
+      name:
+        name: name
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives:
+          constraint:
+            required: "true"
+      published:
+        name: published
+        type: Boolean
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - name
+      - published
+  CreateUserInput:
+    description: null
+    fields:
+      firstName:
+        name: firstName
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives:
+          constraint:
+            required: "true"
+      lastName:
+        name: lastName
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives:
+          constraint:
+            required: "true"
+    fieldNames:
+      - firstName
+      - lastName
+  UpdateOrganizationInput:
+    description: null
+    fields:
+      name:
+        name: name
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - name
+  UpdateProjectInput:
+    description: null
+    fields:
+      name:
+        name: name
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      published:
+        name: published
+        type: Boolean
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - name
+      - published
+  UpdateUserInput:
+    description: null
+    fields:
+      firstName:
+        name: firstName
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      lastName:
+        name: lastName
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - firstName
+      - lastName
+scalars:
+  Boolean:
+    description: The `Boolean` scalar type represents `true` or `false`.
+  DateTime:
+    description: An RFC 3339 compliant date time
+  EmailAddress:
+    description: An RFC 5322 compliant email address
+  Float:
+    description: The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point).
+  ID:
+    description: The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as "4") or integer (such as 4) input value will be accepted as an ID.
+  Int:
+    description: The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+  String:
+    description: The `String`scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+  UUID:
+    description: A RFC 4122 compliant UUID
+types:
+  Flag:
+    description: The flag object
+    fields:
+      createdAt:
+        name: createdAt
+        type: DateTime
+        description: The date and time the flag was created
+        arguments: {}
+        argumentNames: []
+        directives:
+          authorization:
+            permissions: "[ADMIN]"
+      deletedAt:
+        name: deletedAt
+        type: DateTime
+        description: The date and time the flag was deleted
+        arguments: {}
+        argumentNames: []
+        directives:
+          authorization:
+            permissions: "[ADMIN]"
+      enabled:
+        name: enabled
+        type: Boolean
+        description: Whether the flag is enabled or not
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      enabledAt:
+        name: enabledAt
+        type: DateTime
+        description: The date and time the flag was enabled
+        arguments: {}
+        argumentNames: []
+        directives:
+          authorization:
+            permissions: "[ADMIN]"
+      id:
+        name: id
+        type: UUID
+        description: Unique identifier of the flag
+        arguments: {}
+        argumentNames: []
+        directives:
+          authorization:
+            permissions: "[ADMIN]"
+      name:
+        name: name
+        type: String
+        description: The name of the flag
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      updatedAt:
+        name: updatedAt
+        type: DateTime
+        description: The date and time the flag was last updated
+        arguments: {}
+        argumentNames: []
+        directives:
+          authorization:
+            permissions: "[ADMIN]"
+    fieldNames:
+      - id
+      - name
+      - enabled
+      - enabledAt
+      - createdAt
+      - updatedAt
+      - deletedAt
+  Mutation:
+    description: null
+    fields:
+      createFlag:
+        name: createFlag
+        type: Flag
+        description: Create a flag
+        arguments:
+          input:
+            name: input
+            type: CreateFlagInput
+            description: Input for creating a flag
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - input
+          - nonce
+        directives:
+          authorization:
+            authenticated: "true"
+            permissions: "[ADMIN]"
+      createOrganization:
+        name: createOrganization
+        type: Organization
+        description: Create an organization
+        arguments:
+          input:
+            name: input
+            type: CreateOrganizationInput
+            description: Input for creating an organization
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - input
+          - nonce
+        directives: {}
+      createProject:
+        name: createProject
+        type: Project
+        description: Create a project
+        arguments:
+          input:
+            name: input
+            type: CreateProjectInput
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - input
+          - nonce
+        directives: {}
+      createUser:
+        name: createUser
+        type: User
+        description: Create a user
+        arguments:
+          input:
+            name: input
+            type: CreateUserInput
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - input
+          - nonce
+        directives: {}
+      deleteFlag:
+        name: deleteFlag
+        type: Flag
+        description: Delete a flag
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of the flag
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - nonce
+        directives: {}
+      deleteOrganization:
+        name: deleteOrganization
+        type: Organization
+        description: Delete an organization
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of the organization
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - nonce
+        directives: {}
+      deleteProject:
+        name: deleteProject
+        type: Project
+        description: Delete a project
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - nonce
+        directives: {}
+      deleteUser:
+        name: deleteUser
+        type: User
+        description: Delete a user
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - nonce
+        directives: {}
+      toggleFlag:
+        name: toggleFlag
+        type: Flag
+        description: Toggle a flag
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of the flag
+            directives:
+              constraint:
+                required: "true"
+          name:
+            name: name
+            type: String
+            description: The name of the flag to toggle
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - name
+          - nonce
+        directives: {}
+      updateOrganization:
+        name: updateOrganization
+        type: Organization
+        description: Update an organization
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of the organization
+            directives:
+              constraint:
+                required: "true"
+          input:
+            name: input
+            type: UpdateOrganizationInput
+            description: Input for updating an organization
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: Unique identifier of the request
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - input
+          - nonce
+        directives: {}
+      updateProject:
+        name: updateProject
+        type: Project
+        description: Update a project
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          input:
+            name: input
+            type: UpdateProjectInput
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - input
+          - nonce
+        directives: {}
+      updateUser:
+        name: updateUser
+        type: User
+        description: Update a user
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          input:
+            name: input
+            type: UpdateUserInput
+            description: null
+            directives:
+              constraint:
+                required: "true"
+          nonce:
+            name: nonce
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+          - input
+          - nonce
+        directives: {}
+    fieldNames:
+      - createFlag
+      - toggleFlag
+      - deleteFlag
+      - createOrganization
+      - updateOrganization
+      - deleteOrganization
+      - createProject
+      - updateProject
+      - deleteProject
+      - createUser
+      - updateUser
+      - deleteUser
+  Organization:
+    description: The organization object
+    fields:
+      createdAt:
+        name: createdAt
+        type: DateTime
+        description: Timestamp when the organization was created
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      deletedAt:
+        name: deletedAt
+        type: DateTime
+        description: Timestamp when the organization was deleted, null if not deleted
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      id:
+        name: id
+        type: UUID
+        description: Unique identifier of the organization
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      name:
+        name: name
+        type: String
+        description: Name of the organization
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      updatedAt:
+        name: updatedAt
+        type: DateTime
+        description: Timestamp when the organization was last updated
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - id
+      - name
+      - createdAt
+      - updatedAt
+      - deletedAt
+  Project:
+    description: The project object
+    fields:
+      createdAt:
+        name: createdAt
+        type: DateTime
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      deletedAt:
+        name: deletedAt
+        type: DateTime
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      id:
+        name: id
+        type: UUID
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      name:
+        name: name
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      published:
+        name: published
+        type: Boolean
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      updatedAt:
+        name: updatedAt
+        type: DateTime
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - id
+      - name
+      - published
+      - createdAt
+      - updatedAt
+      - deletedAt
+  Query:
+    description: null
+    fields:
+      getFlagByName:
+        name: getFlagByName
+        type: Flag
+        description: Get a flag by name
+        arguments:
+          name:
+            name: name
+            type: String
+            description: The name of the flag
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - name
+        directives: {}
+      getOrganizationById:
+        name: getOrganizationById
+        type: Organization
+        description: Get an organization by id
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: Unique identifier of an organization
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+        directives: {}
+      getProjectById:
+        name: getProjectById
+        type: Project
+        description: Get a project by id
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+        directives: {}
+      getUserById:
+        name: getUserById
+        type: User
+        description: Get a user by id
+        arguments:
+          id:
+            name: id
+            type: UUID
+            description: null
+            directives:
+              constraint:
+                required: "true"
+        argumentNames:
+          - id
+        directives: {}
+      listOrganizations:
+        name: listOrganizations
+        type: "[Organization]"
+        description: List the organizations
+        arguments:
+          after:
+            name: after
+            type: UUID
+            description: Unique identifier of an organization to start after
+            directives: {}
+          limit:
+            name: limit
+            type: Int
+            description: Number of organizations to return
+            directives: {}
+          start:
+            name: start
+            type: Int
+            description: Number of organizations to start after
+            directives: {}
+        argumentNames:
+          - after
+          - start
+          - limit
+        directives: {}
+      listProjects:
+        name: listProjects
+        type: "[Project]"
+        description: List the projects
+        arguments:
+          after:
+            name: after
+            type: UUID
+            description: null
+            directives: {}
+          limit:
+            name: limit
+            type: Int
+            description: null
+            directives: {}
+          start:
+            name: start
+            type: Int
+            description: null
+            directives: {}
+        argumentNames:
+          - after
+          - start
+          - limit
+        directives: {}
+      listUsers:
+        name: listUsers
+        type: "[User]"
+        description: List the users
+        arguments:
+          after:
+            name: after
+            type: UUID
+            description: null
+            directives: {}
+          limit:
+            name: limit
+            type: Int
+            description: null
+            directives: {}
+          start:
+            name: start
+            type: Int
+            description: null
+            directives: {}
+        argumentNames:
+          - after
+          - start
+          - limit
+        directives: {}
+    fieldNames:
+      - getFlagByName
+      - getOrganizationById
+      - listOrganizations
+      - getProjectById
+      - listProjects
+      - getUserById
+      - listUsers
+  User:
+    description: The user object
+    fields:
+      createdAt:
+        name: createdAt
+        type: DateTime
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      deletedAt:
+        name: deletedAt
+        type: DateTime
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      firstName:
+        name: firstName
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      id:
+        name: id
+        type: UUID
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      lastName:
+        name: lastName
+        type: String
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+      updatedAt:
+        name: updatedAt
+        type: DateTime
+        description: null
+        arguments: {}
+        argumentNames: []
+        directives: {}
+    fieldNames:
+      - id
+      - firstName
+      - lastName
+      - createdAt
+      - updatedAt
+      - deletedAt
