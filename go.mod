@@ -1,4 +1,4 @@
-module erpx
+module graphql_docs
 
 go 1.22.0
 
