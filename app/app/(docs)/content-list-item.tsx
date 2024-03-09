@@ -9,6 +9,7 @@ import { H3, H4, H5, P } from "@/components/ui/typography";
 interface DocsContentListItemProps extends HTMLAttributes<HTMLDivElement> {
   article: APIDocsArticle;
 }
+
 interface DocsContentListItemFieldProps extends HTMLAttributes<HTMLDivElement> {
   field: APITypeField | APITypeFieldArgument;
 }
@@ -67,9 +68,16 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
           {isType && (
             <div className="rounded-lg overflow-hidden">
               <div className="bg-stone-800 text-white p-2">
-                <H5>The thing object</H5>
+                <H5>Object</H5>
               </div>
-              <CodeBlock content={"{}"} language="json" />
+              <CodeBlock
+                content={buildExampleType(
+                  (definition as APIType).fieldNames!.map(
+                    (fieldName) => (definition as APIType).fields![fieldName],
+                  ),
+                )}
+                language="json"
+              />
             </div>
           )}
           {isQuery && (
@@ -78,13 +86,13 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Query</H5>
                 </div>
-                <CodeBlock content={"{}"} language="json" />
+                <CodeBlock content={buildExampleQuery([])} language="graphql" />
               </div>
               <div className="rounded-lg overflow-hidden">
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Variables</H5>
                 </div>
-                <CodeBlock content={"{}"} language="json" />
+                <CodeBlock content={buildExampleVariables()} language="json" />
               </div>
             </>
           )}
@@ -94,13 +102,13 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Mutation</H5>
                 </div>
-                <CodeBlock content={"{}"} language="json" />
+                <CodeBlock content={buildExampleMutation([])} language="json" />
               </div>
               <div className="rounded-lg overflow-hidden">
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Variables</H5>
                 </div>
-                <CodeBlock content={"{}"} language="json" />
+                <CodeBlock content={buildExampleVariables()} language="json" />
               </div>
             </>
           )}
@@ -128,9 +136,7 @@ function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
   );
 }
 
-// OLD
-
-function buildExample(fields: APITypeField[] | APITypeFieldArgument[]) {
+function buildExampleType(fields: APITypeField[]) {
   const example: Record<string, unknown> = {};
 
   fields.forEach((field) => {
@@ -157,4 +163,30 @@ function buildExample(fields: APITypeField[] | APITypeFieldArgument[]) {
   });
 
   return JSON.stringify(example, null, 2);
+}
+
+function buildExampleQuery(fields: APITypeFieldArgument[]) {
+  return `query(id: UUID) {
+  id
+  name
+  email
+  createdAt
+  updatedAt
+  deletedAt
+}`;
+}
+
+function buildExampleMutation(fields: APITypeFieldArgument[]) {
+  return `query(id: UUID) {
+  id
+  name
+  email
+  createdAt
+  updatedAt
+  deletedAt
+}`;
+}
+
+function buildExampleVariables() {
+  return "{}";
 }

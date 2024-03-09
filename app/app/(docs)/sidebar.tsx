@@ -15,12 +15,7 @@ export function DocsSidebar({ className, docs }: DocsSidebarProps) {
       <nav className="p-4">
         <DocsSidebarList
           title="Introduction"
-          articles={[
-            { type: "Getting started" },
-            { type: "Authentication" },
-            { type: "Rate limits" },
-            { type: "Errors" },
-          ].map((article) => ({ ...article, id: uuid4() }))}
+          articles={[{ type: "Getting started" }].map((article) => ({ ...article, id: uuid4() }))}
         />
         {docs.sections.map((section) => (
           <DocsSidebarList key={section.id} title={section.title} articles={section.articles} />
