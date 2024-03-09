@@ -71,7 +71,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <H5>Object</H5>
               </div>
               <CodeBlock
-                content={buildExampleType(
+                content={buildExampleObject(
                   (definition as APIType).fieldNames!.map(
                     (fieldName) => (definition as APIType).fields![fieldName],
                   ),
@@ -87,7 +87,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   <H5>Query</H5>
                 </div>
                 <CodeBlock
-                  content={buildExampleQuery(definition as APITypeField)}
+                  content={buildExampleGraphQL("query", definition as APITypeField)}
                   language="graphql"
                 />
               </div>
@@ -95,7 +95,10 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Variables</H5>
                 </div>
-                <CodeBlock content={buildExampleVariables()} language="json" />
+                <CodeBlock
+                  content={buildExampleVariables(definition as APITypeField)}
+                  language="json"
+                />
               </div>
             </>
           )}
@@ -106,7 +109,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   <H5>Mutation</H5>
                 </div>
                 <CodeBlock
-                  content={buildExampleMutation(definition as APITypeField)}
+                  content={buildExampleGraphQL("mutation", definition as APITypeField)}
                   language="graphql"
                 />
               </div>
@@ -114,7 +117,10 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                 <div className="bg-stone-800 text-white p-2">
                   <H5>Variables</H5>
                 </div>
-                <CodeBlock content={buildExampleVariables()} language="json" />
+                <CodeBlock
+                  content={buildExampleVariables(definition as APITypeField)}
+                  language="json"
+                />
               </div>
             </>
           )}
@@ -142,36 +148,19 @@ function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
   );
 }
 
-function buildExampleType(fields: APITypeField[]) {
-  const example: Record<string, unknown> = {};
+function buildExampleObject(fields: APITypeField[]) {
+  const object: Record<string, unknown> = {};
 
   fields.forEach((field) => {
-    const value = (() => {
-      switch (field.type) {
-        case "ID":
-          return "id";
-        case "UUID":
-          return uuid4();
-        case "Int":
-          return 42;
-        case "String":
-          return "string";
-        case "Boolean":
-          return true;
-        case "DateTime":
-          return new Date().toISOString();
-        default:
-          return null;
-      }
-    })();
+    const value = generateValue(field.type);
 
-    example[field.name] = value;
+    object[field.name] = value;
   });
 
-  return JSON.stringify(example, null, 2);
+  return JSON.stringify(object, null, 2);
 }
 
-function buildExampleQuery(definition: APITypeField) {
+function buildExampleGraphQL(action: "query" | "mutation", definition: APITypeField) {
   const name = definition.name;
   let args = definition.argumentNames?.reduce((acc, argumentName) => {
     if (!acc) return argumentName;
@@ -199,7 +188,7 @@ function buildExampleQuery(definition: APITypeField) {
     }
   }
 
-  return `query ${name.charAt(0).toUpperCase() + name.slice(1)}${args} {
+  return `${action} ${name.charAt(0).toUpperCase() + name.slice(1)}${args} {
   ${name}${argRefs} {
     id
     name
@@ -210,45 +199,36 @@ function buildExampleQuery(definition: APITypeField) {
 }`;
 }
 
-function buildExampleMutation(definition: APITypeField) {
-  const name = definition.name;
-  let args = definition.argumentNames?.reduce((acc, argumentName) => {
-    if (!acc) return argumentName;
-    return `${acc}$${argumentName}: ${definition.arguments![argumentName].type}, `;
-  }, "(");
-  if (args == "(") {
-    args = "";
-  } else {
-    if (args?.endsWith(", ")) {
-      args = args.slice(0, -2);
-      args = args + ")";
-    }
+function buildExampleVariables(definition: APITypeField) {
+  const variables: Record<string, unknown> = {};
+
+  if (definition.argumentNames) {
+    definition.argumentNames.forEach((argumentName) => {
+      const argument = definition.arguments![argumentName];
+      const value = generateValue(argument.type);
+
+      variables[argumentName] = value;
+    });
   }
 
-  let argRefs = definition.argumentNames?.reduce((acc, argumentName) => {
-    if (!acc) return argumentName;
-    return `${acc}${argumentName}: $${argumentName}, `;
-  }, "(");
-  if (argRefs == "(") {
-    argRefs = "";
-  } else {
-    if (argRefs?.endsWith(", ")) {
-      argRefs = argRefs.slice(0, -2);
-      argRefs = argRefs + ")";
-    }
-  }
-
-  return `mutation ${name.charAt(0).toUpperCase() + name.slice(1)}${args} {
-  ${name}${argRefs} {
-    id
-    name
-    createdAt
-    updatedAt
-    deletedAt
-  }
-}`;
+  return JSON.stringify(variables, null, 2);
 }
 
-function buildExampleVariables() {
-  return "{}";
+function generateValue(type: string) {
+  switch (type) {
+    case "ID":
+      return "id";
+    case "UUID":
+      return uuid4();
+    case "Int":
+      return 42;
+    case "String":
+      return "string";
+    case "Boolean":
+      return true;
+    case "DateTime":
+      return new Date().toISOString();
+    default:
+      return null;
+  }
 }
