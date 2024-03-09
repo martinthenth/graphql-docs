@@ -124,6 +124,8 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
 }
 
 function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
+  const isRequired = field.directives?.constraint?.required === "true";
+
   return (
     <article className="border-t py-2 last:pb-0">
       <Grid gap="xs">
@@ -133,6 +135,9 @@ function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
           </H5>
           <P color="tertiary" size="sm" className="pb-px">
             {field.type}
+          </P>
+          <P color="tertiary" size="sm" className="pb-px">
+            {isRequired ? "required" : "optional"}
           </P>
         </Flex>
         {field.description && <P color="secondary">{field.description}</P>}
