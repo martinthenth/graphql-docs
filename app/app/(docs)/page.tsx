@@ -1,13 +1,16 @@
 import { uuid4 } from "@/lib/uuid";
 import { API, APIDocs } from "@/types";
 import { promises as fs } from "fs";
+import YAML from "yaml";
 import { DocsContent } from "./content";
 import { DocsSidebar } from "./sidebar";
 
-const apiFilePath = "/lib/graph.json";
+const filePath = "/lib/graph.yaml";
 
 export default async function DocsPage() {
-  const docs = await generateApiDocs(apiFilePath);
+  const file = await fs.readFile(process.cwd() + filePath, "utf8");
+  const api: API = YAML.parse(file);
+  const docs = buildDocs(api);
 
   return (
     <>
@@ -17,9 +20,7 @@ export default async function DocsPage() {
   );
 }
 
-async function generateApiDocs(filePath: string) {
-  const apiFile = await fs.readFile(process.cwd() + filePath, "utf8");
-  const api: API = JSON.parse(apiFile);
+function buildDocs(api: API) {
   const docs: APIDocs = {
     title: "GraphQL API",
     version: api.version,
