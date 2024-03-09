@@ -15,14 +15,8 @@ export function DocsHeader({ style }: DocsHeaderProps) {
           </Button>
         </Flex>
         <Flex gap="sm" items="center">
-          <Button href="/api" variant="minimal">
+          <Button href="/" variant="minimal">
             API
-          </Button>
-          <Button href="/pricing" variant="minimal">
-            Pricing
-          </Button>
-          <Button href="/signin" variant="minimal">
-            Sign in
           </Button>
         </Flex>
       </Flex>
