@@ -1,0 +1,45 @@
+input CreateUserInput {
+    firstName: String @constraint(required: true)
+    lastName: String @constraint(required: true)
+}
+
+input UpdateUserInput {
+    firstName: String
+    lastName: String
+}
+
+extend type Mutation {
+    "Create a user"
+    createUser(
+        input: CreateUserInput @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): User
+    "Update a user"
+    updateUser(
+        id: UUID @constraint(required: true)
+        input: UpdateUserInput @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): User
+    "Delete a user"
+    deleteUser(
+        id: UUID @constraint(required: true)
+        nonce: UUID @constraint(required: true)
+    ): User
+}
+
+extend type Query {
+    "Get a user by id"
+    getUserById(id: UUID @constraint(required: true)): User
+    "List the users"
+    listUsers(after: UUID, start: Int, limit: Int): [User]
+}
+
+"The user object"
+type User {
+    id: UUID
+    firstName: String
+    lastName: String
+    createdAt: DateTime
+    updatedAt: DateTime
+    deletedAt: DateTime
+}

@@ -1,0 +1,64 @@
+input CreateOrganizationInput {
+    name: String @constraint(required: true)
+}
+
+input UpdateOrganizationInput {
+    name: String
+}
+
+extend type Mutation {
+    "Create an organization"
+    createOrganization(
+        "Input for creating an organization"
+        input: CreateOrganizationInput @constraint(required: true)
+        "Unique identifier of the request"
+        nonce: UUID @constraint(required: true)
+    ): Organization
+    "Update an organization"
+    updateOrganization(
+        "Unique identifier of the organization"
+        id: UUID @constraint(required: true)
+        "Input for updating an organization"
+        input: UpdateOrganizationInput @constraint(required: true)
+        "Unique identifier of the request"
+        nonce: UUID @constraint(required: true)
+    ): Organization
+    "Delete an organization"
+    deleteOrganization(
+        "Unique identifier of the organization"
+        id: UUID @constraint(required: true)
+        "Unique identifier of the request"
+        nonce: UUID @constraint(required: true)
+    ): Organization
+}
+
+extend type Query {
+    "Get an organization by id"
+    getOrganizationById(
+        "Unique identifier of an organization"
+        id: UUID @constraint(required: true)
+    ): Organization
+    "List the organizations"
+    listOrganizations(
+        "Unique identifier of an organization to start after"
+        after: UUID
+        "Number of organizations to start after"
+        start: Int
+        "Number of organizations to return"
+        limit: Int
+    ): [Organization]
+}
+
+"The organization object"
+type Organization {
+    "Unique identifier of the organization"
+    id: UUID
+    "Name of the organization"
+    name: String
+    "Timestamp when the organization was created"
+    createdAt: DateTime
+    "Timestamp when the organization was last updated"
+    updatedAt: DateTime
+    "Timestamp when the organization was deleted, null if not deleted"
+    deletedAt: DateTime
+}
