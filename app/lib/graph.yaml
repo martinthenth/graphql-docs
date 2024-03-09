@@ -164,7 +164,7 @@ types:
         argumentNames: []
         directives:
           authorization:
-            permissions: '[ADMIN]'
+            permissions: "[ADMIN]"
       deletedAt:
         name: deletedAt
         type: DateTime
@@ -173,7 +173,7 @@ types:
         argumentNames: []
         directives:
           authorization:
-            permissions: '[ADMIN]'
+            permissions: "[ADMIN]"
       enabled:
         name: enabled
         type: Boolean
@@ -189,7 +189,7 @@ types:
         argumentNames: []
         directives:
           authorization:
-            permissions: '[ADMIN]'
+            permissions: "[ADMIN]"
       id:
         name: id
         type: UUID
@@ -198,7 +198,7 @@ types:
         argumentNames: []
         directives:
           authorization:
-            permissions: '[ADMIN]'
+            permissions: "[ADMIN]"
       name:
         name: name
         type: String
@@ -214,7 +214,7 @@ types:
         argumentNames: []
         directives:
           authorization:
-            permissions: '[ADMIN]'
+            permissions: "[ADMIN]"
     fieldNames:
       - id
       - name
@@ -251,7 +251,7 @@ types:
         directives:
           authorization:
             authenticated: "true"
-            permissions: '[ADMIN]'
+            permissions: "[ADMIN]"
       createOrganization:
         name: createOrganization
         type: Organization
@@ -711,7 +711,7 @@ types:
         directives: {}
       listOrganizations:
         name: listOrganizations
-        type: '[Organization]'
+        type: "[Organization]"
         description: List the organizations
         arguments:
           after:
@@ -736,7 +736,7 @@ types:
         directives: {}
       listProjects:
         name: listProjects
-        type: '[Project]'
+        type: "[Project]"
         description: List the projects
         arguments:
           after:
@@ -761,7 +761,7 @@ types:
         directives: {}
       listUsers:
         name: listUsers
-        type: '[User]'
+        type: "[User]"
         description: List the users
         arguments:
           after:
@@ -844,4 +844,3 @@ types:
       - createdAt
       - updatedAt
       - deletedAt
-
