@@ -11,7 +11,7 @@ A beautiful GraphQL static documentation website - based on Next.js and Golang.
 
 ### Generating the GraphQL JSON
 
-1. Run `task docs.generate` to generate `app/lib/graph.json`.
+1. Run `task docs.generate` to generate `app/lib/graph.yaml`.
 
 ### Running the server
 
