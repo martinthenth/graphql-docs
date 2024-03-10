@@ -43,4 +43,5 @@ A beautiful GraphQL static documentation website - based on Next.js and Golang.
 
 ## Preview
 
-<img width="1355" alt="preview" src="https://github.com/martinthenth/graphql-docs/assets/9060839/218f4286-9873-4488-8084-4b92179fc7d5">
+<img width="1371" alt="Screenshot 2024-03-10 at 04 49 44" src="https://github.com/martinthenth/graphql-docs/assets/9060839/5e0af93d-7167-4a99-a8a2-c953ac36eee2">
+
