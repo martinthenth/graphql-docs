@@ -1,6 +1,7 @@
 import { APIDocs } from "@/types";
 import { HTMLAttributes } from "react";
 import { Grid } from "@/components/ui/grid";
+import { DocsContentIntro } from "./content-intro";
 import { DocsContentList } from "./content-list";
 
 interface DocsContentProps extends HTMLAttributes<HTMLDivElement> {
@@ -12,9 +13,15 @@ export function DocsContent({ className, docs }: DocsContentProps) {
 
   return (
     <main className={classNames}>
-      <Grid gap="lg">
+      <Grid>
+        <DocsContentIntro />
         {docs.sections.map((section) => (
-          <DocsContentList key={section.id} title={section.title} articles={section.articles} />
+          <DocsContentList
+            key={section.id}
+            title={section.title}
+            articles={section.articles}
+            className="border-t"
+          />
         ))}
       </Grid>
     </main>

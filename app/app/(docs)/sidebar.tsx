@@ -1,5 +1,4 @@
-import { uuid4 } from "@/lib/uuid";
-import { APIDocs } from "@/types";
+import { APIDocs, APITypeField } from "@/types";
 import { HTMLAttributes } from "react";
 import { DocsSidebarList } from "./sidebar-list";
 
@@ -15,10 +14,20 @@ export function DocsSidebar({ className, docs }: DocsSidebarProps) {
       <nav className="p-4">
         <DocsSidebarList
           title="Introduction"
-          articles={[{ type: "Getting started" }].map((article) => ({ ...article, id: uuid4() }))}
+          items={[{ id: "123", title: "Getting started", anchor: "getting-started" }]}
         />
         {docs.sections.map((section) => (
-          <DocsSidebarList key={section.id} title={section.title} articles={section.articles} />
+          <DocsSidebarList
+            key={section.id}
+            title={section.title}
+            items={section.articles.map((article) => ({
+              id: article.id,
+              title: article.definition.description || article.type,
+              anchor: ["Query", "Mutation"].includes(article.type)
+                ? (article.definition as APITypeField).name
+                : article.type,
+            }))}
+          />
         ))}
       </nav>
     </aside>

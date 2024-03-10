@@ -1,6 +1,5 @@
 "use client";
 
-import { APIDocsArticle } from "@/types";
 import { ChevronDownIcon, ChevronRightIcon } from "lucide-react";
 import { HTMLAttributes, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -8,10 +7,10 @@ import { P } from "@/components/ui/typography";
 
 interface DocsSidebarListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  articles: APIDocsArticle[];
+  items: { id: string; title: string; anchor: string }[];
 }
 
-export function DocsSidebarList({ articles, title }: DocsSidebarListProps) {
+export function DocsSidebarList({ items, title }: DocsSidebarListProps) {
   const [open, setOpen] = useState(true);
 
   return (
@@ -33,14 +32,15 @@ export function DocsSidebarList({ articles, title }: DocsSidebarListProps) {
       </header>
       {open && (
         <article>
-          {articles.map((article) => (
+          {items.map((item) => (
             <Button
-              key={article.id}
+              key={item.id}
+              href={"/#" + item.anchor}
               justify="start"
               variant="minimal"
               className="w-full font-normal"
             >
-              <P color="secondary">{article.definition?.description || article.type}</P>
+              <P color="secondary">{item.title}</P>
             </Button>
           ))}
         </article>

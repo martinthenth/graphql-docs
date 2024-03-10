@@ -60,4 +60,9 @@ export type APITypeFieldDirective = { required?: string; permissions?: string };
 
 export type APIDocs = { title: string; version: string; sections: APIDocsSection[] };
 export type APIDocsSection = { id: string; title: string; articles: APIDocsArticle[] };
-export type APIDocsArticle = { id: string; type: string; definition?: APIType | APITypeField };
+export type APIDocsArticle = {
+  id: string;
+  type: string;
+  definition: APIType | APITypeField;
+  inputs: APIInputs;
+};
