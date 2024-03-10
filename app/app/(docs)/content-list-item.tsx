@@ -24,7 +24,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
   return (
     <div className={className}>
       <header>
-        <H3>{article.definition?.description}</H3>
+        <H3>{article.definition.description}</H3>
       </header>
       <Grid gap="md" items="start" className="grid-cols-2">
         <Grid>
@@ -96,7 +96,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   <H5>Variables</H5>
                 </div>
                 <CodeBlock
-                  content={buildExampleVariables(definition as APITypeField, article.inputs!)}
+                  content={buildExampleVariables(definition as APITypeField, article.inputs)}
                   language="json"
                 />
               </div>
@@ -118,7 +118,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   <H5>Variables</H5>
                 </div>
                 <CodeBlock
-                  content={buildExampleVariables(definition as APITypeField, article.inputs!)}
+                  content={buildExampleVariables(definition as APITypeField, article.inputs)}
                   language="json"
                 />
               </div>

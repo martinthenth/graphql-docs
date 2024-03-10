@@ -63,6 +63,6 @@ export type APIDocsSection = { id: string; title: string; articles: APIDocsArtic
 export type APIDocsArticle = {
   id: string;
   type: string;
-  definition?: APIType | APITypeField;
-  inputs?: APIInputs;
+  definition: APIType | APITypeField;
+  inputs: APIInputs;
 };
