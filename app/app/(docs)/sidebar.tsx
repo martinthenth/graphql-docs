@@ -1,4 +1,4 @@
-import { APIDocs } from "@/types";
+import { APIDocs, APITypeField } from "@/types";
 import { HTMLAttributes } from "react";
 import { DocsSidebarList } from "./sidebar-list";
 
@@ -12,7 +12,10 @@ export function DocsSidebar({ className, docs }: DocsSidebarProps) {
   return (
     <aside className={classNames}>
       <nav className="p-4">
-        <DocsSidebarList title="Introduction" items={[{ id: "123", title: "Getting started" }]} />
+        <DocsSidebarList
+          title="Introduction"
+          items={[{ id: "123", title: "Getting started", anchor: "getting-started" }]}
+        />
         {docs.sections.map((section) => (
           <DocsSidebarList
             key={section.id}
@@ -20,6 +23,9 @@ export function DocsSidebar({ className, docs }: DocsSidebarProps) {
             items={section.articles.map((article) => ({
               id: article.id,
               title: article.definition.description || article.type,
+              anchor: ["Query", "Mutation"].includes(article.type)
+                ? (article.definition as APITypeField).name
+                : article.type,
             }))}
           />
         ))}

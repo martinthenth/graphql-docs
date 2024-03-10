@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { HTMLAttributes } from "react";
+import { Anchor } from "@/components/ui/anchor";
 import { Code } from "@/components/ui/code";
 import { Grid } from "@/components/ui/grid";
 import { List, ListItem } from "@/components/ui/list";
@@ -13,6 +13,7 @@ export function DocsContentIntro({}: DocsContentIntroProps) {
       <div className="p-4">
         <H2>Introduction</H2>
       </div>
+      <Anchor id="getting-started" />
       <Grid gap="sm" className="p-4 border-t">
         <header>
           <H3>Getting started</H3>

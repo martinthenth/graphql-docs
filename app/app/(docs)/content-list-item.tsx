@@ -1,6 +1,7 @@
 import { uuid4 } from "@/lib/uuid";
 import { APIDocsArticle, APIInput, APIType, APITypeField, APITypeFieldArgument } from "@/types";
 import { HTMLAttributes } from "react";
+import { Anchor } from "@/components/ui/anchor";
 import { Code } from "@/components/ui/code";
 import { CodeBlock } from "@/components/ui/codeblock";
 import { Flex } from "@/components/ui/flex";
@@ -24,6 +25,13 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
 
   return (
     <div className={className}>
+      <Anchor
+        id={
+          ["Query", "Mutation"].includes(article.type)
+            ? (article.definition as APITypeField).name
+            : article.type
+        }
+      />
       <header>
         <H3>{article.definition.description}</H3>
       </header>

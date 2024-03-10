@@ -7,7 +7,7 @@ import { P } from "@/components/ui/typography";
 
 interface DocsSidebarListProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  items: { id: string; title: string }[];
+  items: { id: string; title: string; anchor: string }[];
 }
 
 export function DocsSidebarList({ items, title }: DocsSidebarListProps) {
@@ -33,7 +33,13 @@ export function DocsSidebarList({ items, title }: DocsSidebarListProps) {
       {open && (
         <article>
           {items.map((item) => (
-            <Button key={item.id} justify="start" variant="minimal" className="w-full font-normal">
+            <Button
+              key={item.id}
+              href={"/#" + item.anchor}
+              justify="start"
+              variant="minimal"
+              className="w-full font-normal"
+            >
               <P color="secondary">{item.title}</P>
             </Button>
           ))}
