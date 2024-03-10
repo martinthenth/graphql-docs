@@ -1,4 +1,4 @@
-version: "2024-03-09T22:52:29Z"
+version: "2024-03-10T01:58:40Z"
 directives: {}
 enums:
   Permission:
@@ -29,7 +29,7 @@ inputs:
       name:
         name: name
         type: String
-        description: null
+        description: The name of the organization
         arguments: {}
         argumentNames: []
         directives:
@@ -43,7 +43,7 @@ inputs:
       name:
         name: name
         type: String
-        description: null
+        description: The name of the project
         arguments: {}
         argumentNames: []
         directives:
@@ -52,7 +52,7 @@ inputs:
       published:
         name: published
         type: Boolean
-        description: null
+        description: The published status of the project
         arguments: {}
         argumentNames: []
         directives: {}
@@ -65,7 +65,7 @@ inputs:
       firstName:
         name: firstName
         type: String
-        description: null
+        description: The first name of the user
         arguments: {}
         argumentNames: []
         directives:
@@ -74,7 +74,7 @@ inputs:
       lastName:
         name: lastName
         type: String
-        description: null
+        description: The last name of the user
         arguments: {}
         argumentNames: []
         directives:
@@ -89,7 +89,7 @@ inputs:
       name:
         name: name
         type: String
-        description: null
+        description: The name of the organization
         arguments: {}
         argumentNames: []
         directives: {}
@@ -101,14 +101,14 @@ inputs:
       name:
         name: name
         type: String
-        description: null
+        description: The name of the project
         arguments: {}
         argumentNames: []
         directives: {}
       published:
         name: published
         type: Boolean
-        description: null
+        description: The published status of the project
         arguments: {}
         argumentNames: []
         directives: {}
@@ -121,14 +121,14 @@ inputs:
       firstName:
         name: firstName
         type: String
-        description: null
+        description: The first name of the user
         arguments: {}
         argumentNames: []
         directives: {}
       lastName:
         name: lastName
         type: String
-        description: null
+        description: The last name of the user
         arguments: {}
         argumentNames: []
         directives: {}
@@ -283,14 +283,14 @@ types:
           input:
             name: input
             type: CreateProjectInput
-            description: null
+            description: Input for creating a project
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -306,14 +306,14 @@ types:
           input:
             name: input
             type: CreateUserInput
-            description: null
+            description: Input for creating a user
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -375,14 +375,14 @@ types:
           id:
             name: id
             type: UUID
-            description: null
+            description: Unique identifier of the project
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -398,14 +398,14 @@ types:
           id:
             name: id
             type: UUID
-            description: null
+            description: Unique identifier of the user
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -483,21 +483,21 @@ types:
           id:
             name: id
             type: UUID
-            description: null
+            description: Unique identifier of the project
             directives:
               constraint:
                 required: "true"
           input:
             name: input
             type: UpdateProjectInput
-            description: null
+            description: Input for updating a project
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -514,21 +514,21 @@ types:
           id:
             name: id
             type: UUID
-            description: null
+            description: Unique identifier of the user
             directives:
               constraint:
                 required: "true"
           input:
             name: input
             type: UpdateUserInput
-            description: null
+            description: Input for updating a user
             directives:
               constraint:
                 required: "true"
           nonce:
             name: nonce
             type: UUID
-            description: null
+            description: Unique identifier of the request
             directives:
               constraint:
                 required: "true"
@@ -600,42 +600,42 @@ types:
       createdAt:
         name: createdAt
         type: DateTime
-        description: null
+        description: Timestamp when the project was created
         arguments: {}
         argumentNames: []
         directives: {}
       deletedAt:
         name: deletedAt
         type: DateTime
-        description: null
+        description: Timestamp when the project was deleted
         arguments: {}
         argumentNames: []
         directives: {}
       id:
         name: id
         type: UUID
-        description: null
+        description: Unique identifier of the project
         arguments: {}
         argumentNames: []
         directives: {}
       name:
         name: name
         type: String
-        description: null
+        description: Name of the project
         arguments: {}
         argumentNames: []
         directives: {}
       published:
         name: published
         type: Boolean
-        description: null
+        description: Published status of the project
         arguments: {}
         argumentNames: []
         directives: {}
       updatedAt:
         name: updatedAt
         type: DateTime
-        description: null
+        description: Timestamp when the project was last updated
         arguments: {}
         argumentNames: []
         directives: {}
@@ -798,42 +798,42 @@ types:
       createdAt:
         name: createdAt
         type: DateTime
-        description: null
+        description: Timestamp when the user was created
         arguments: {}
         argumentNames: []
         directives: {}
       deletedAt:
         name: deletedAt
         type: DateTime
-        description: null
+        description: Timestamp when the user was deleted
         arguments: {}
         argumentNames: []
         directives: {}
       firstName:
         name: firstName
         type: String
-        description: null
+        description: First name of the user
         arguments: {}
         argumentNames: []
         directives: {}
       id:
         name: id
         type: UUID
-        description: null
+        description: Unique identifier of the user
         arguments: {}
         argumentNames: []
         directives: {}
       lastName:
         name: lastName
         type: String
-        description: null
+        description: Last name of the user
         arguments: {}
         argumentNames: []
         directives: {}
       updatedAt:
         name: updatedAt
         type: DateTime
-        description: null
+        description: Timestamp when the user was last updated
         arguments: {}
         argumentNames: []
         directives: {}

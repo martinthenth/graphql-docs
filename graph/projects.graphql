@@ -1,45 +1,62 @@
 input CreateProjectInput {
-    name: String @constraint(required: true)
-    published: Boolean
+  "The name of the project"
+  name: String @constraint(required: true)
+  "The published status of the project"
+  published: Boolean
 }
 
 input UpdateProjectInput {
-    name: String
-    published: Boolean
+  "The name of the project"
+  name: String
+  "The published status of the project"
+  published: Boolean
 }
 
 extend type Mutation {
-    "Create a project"
-    createProject(
-        input: CreateProjectInput @constraint(required: true)
-        nonce: UUID @constraint(required: true)
-    ): Project
-    "Update a project"
-    updateProject(
-        id: UUID @constraint(required: true)
-        input: UpdateProjectInput @constraint(required: true)
-        nonce: UUID @constraint(required: true)
-    ): Project
-    "Delete a project"
-    deleteProject(
-        id: UUID @constraint(required: true)
-        nonce: UUID @constraint(required: true)
-    ): Project
+  "Create a project"
+  createProject(
+    "Input for creating a project"
+    input: CreateProjectInput @constraint(required: true)
+    "Unique identifier of the request"
+    nonce: UUID @constraint(required: true)
+  ): Project
+  "Update a project"
+  updateProject(
+    "Unique identifier of the project"
+    id: UUID @constraint(required: true)
+    "Input for updating a project"
+    input: UpdateProjectInput @constraint(required: true)
+    "Unique identifier of the request"
+    nonce: UUID @constraint(required: true)
+  ): Project
+  "Delete a project"
+  deleteProject(
+    "Unique identifier of the project"
+    id: UUID @constraint(required: true)
+    "Unique identifier of the request"
+    nonce: UUID @constraint(required: true)
+  ): Project
 }
 
 extend type Query {
-    "Get a project by id"
-    getProjectById(id: UUID @constraint(required: true)): Project
-    "List the projects"
-    listProjects(after: UUID, start: Int, limit: Int): [Project]
+  "Get a project by id"
+  getProjectById(id: UUID @constraint(required: true)): Project
+  "List the projects"
+  listProjects(after: UUID, start: Int, limit: Int): [Project]
 }
 
 "The project object"
 type Project {
-    id: UUID
-    name: String
-    published: Boolean
-    createdAt: DateTime
-    updatedAt: DateTime
-    deletedAt: DateTime
+  "Unique identifier of the project"
+  id: UUID
+  "Name of the project"
+  name: String
+  "Published status of the project"
+  published: Boolean
+  "Timestamp when the project was created"
+  createdAt: DateTime
+  "Timestamp when the project was last updated"
+  updatedAt: DateTime
+  "Timestamp when the project was deleted"
+  deletedAt: DateTime
 }

@@ -38,7 +38,10 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                     <code className="p-1 rounded-lg bg-stone-100">
                       {(article.definition as APITypeField).name}
                     </code>
-                    : {(article.definition as APITypeField).type}
+                    :{" "}
+                    <code className="p-1 rounded-lg bg-stone-100">
+                      {(article.definition as APITypeField).type}
+                    </code>
                   </>
                 )}
               </P>
