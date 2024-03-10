@@ -1,5 +1,13 @@
 import { uuid4 } from "@/lib/uuid";
-import { API, APIDocs } from "@/types";
+import {
+  API,
+  APIDocs,
+  APIDocsArticle,
+  APIDocsSection,
+  APIInput,
+  APIType,
+  APITypeField,
+} from "@/types";
 import { promises as fs } from "fs";
 import YAML from "yaml";
 import { DocsContent } from "./content";
@@ -33,7 +41,7 @@ function buildDocs(api: API) {
           { type: "Mutation", definition: api.types.Mutation.fields!["createFlag"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["toggleFlag"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["deleteFlag"] },
-        ].map((article) => ({ ...article, id: uuid4() })),
+        ].map((article) => enrichArticle(article, api)),
       },
       {
         title: "Organizations",
@@ -44,7 +52,7 @@ function buildDocs(api: API) {
           { type: "Mutation", definition: api.types.Mutation.fields!["createOrganization"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["updateOrganization"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["deleteOrganization"] },
-        ].map((article) => ({ ...article, id: uuid4() })),
+        ].map((article) => enrichArticle(article, api)),
       },
       {
         id: uuid4(),
@@ -56,7 +64,7 @@ function buildDocs(api: API) {
           { type: "Mutation", definition: api.types.Mutation.fields!["createProject"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["updateProject"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["deleteProject"] },
-        ].map((article) => ({ ...article, id: uuid4() })),
+        ].map((article) => enrichArticle(article, api)),
       },
       {
         id: uuid4(),
@@ -68,10 +76,40 @@ function buildDocs(api: API) {
           { type: "Mutation", definition: api.types.Mutation.fields!["createUser"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["updateUser"] },
           { type: "Mutation", definition: api.types.Mutation.fields!["deleteUser"] },
-        ].map((article) => ({ ...article, id: uuid4() })),
+        ].map((article) => enrichArticle(article, api)),
       },
-    ].map((section) => ({ ...section, id: uuid4() })),
+    ].map((section) => enrichSection(section)),
   };
 
   return docs;
+}
+
+function enrichSection(section: { title: string; articles: APIDocsArticle[] }): APIDocsSection {
+  return { ...section, id: uuid4() };
+}
+
+function enrichArticle(
+  article: {
+    type: string;
+    definition: APIType | APITypeField;
+  },
+  api: API,
+): APIDocsArticle {
+  const inputs: Record<string, APIInput> = {};
+
+  if (["Query", "Mutation"].includes(article.type)) {
+    const definition = article.definition as APITypeField;
+
+    if (definition.arguments) {
+      for (const [, argument] of Object.entries(definition.arguments)) {
+        const input = api.inputs[argument.type];
+
+        if (input) {
+          inputs[argument.type] = input;
+        }
+      }
+    }
+  }
+
+  return { ...article, id: uuid4(), inputs: inputs };
 }

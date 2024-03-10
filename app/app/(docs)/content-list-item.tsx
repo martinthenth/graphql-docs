@@ -1,5 +1,5 @@
 import { uuid4 } from "@/lib/uuid";
-import { APIDocsArticle, APIType, APITypeField, APITypeFieldArgument } from "@/types";
+import { APIDocsArticle, APIInput, APIType, APITypeField, APITypeFieldArgument } from "@/types";
 import { HTMLAttributes } from "react";
 import { CodeBlock } from "@/components/ui/codeblock";
 import { Flex } from "@/components/ui/flex";
@@ -12,6 +12,7 @@ interface DocsContentListItemProps extends HTMLAttributes<HTMLDivElement> {
 
 interface DocsContentListItemFieldProps extends HTMLAttributes<HTMLDivElement> {
   field: APITypeField | APITypeFieldArgument;
+  inputs?: Record<string, APIInput>;
 }
 
 export function DocsContentListItem({ article, className }: DocsContentListItemProps) {
@@ -37,10 +38,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                     <code className="p-1 rounded-lg bg-stone-100">
                       {(article.definition as APITypeField).name}
                     </code>
-                    :{" "}
-                    <code className="p-1 rounded-lg bg-stone-100">
-                      {(article.definition as APITypeField).type}
-                    </code>
+                    : {(article.definition as APITypeField).type}
                   </>
                 )}
               </P>
@@ -60,7 +58,13 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   .argumentNames!.map(
                     (argumentName) => (definition as APITypeField).arguments![argumentName],
                   )
-                  .map((field) => <DocsContentListItemField key={field.name} field={field} />)}
+                  .map((field) => (
+                    <DocsContentListItemField
+                      key={field.name}
+                      field={field}
+                      inputs={article.inputs}
+                    />
+                  ))}
             </section>
           </div>
         </Grid>
@@ -89,7 +93,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   <H5>Variables</H5>
                 </div>
                 <CodeBlock
-                  content={buildExampleVariables(definition as APITypeField)}
+                  content={buildExampleVariables(definition as APITypeField, article.inputs!)}
                   language="json"
                 />
               </div>
@@ -111,7 +115,7 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
                   <H5>Variables</H5>
                 </div>
                 <CodeBlock
-                  content={buildExampleVariables(definition as APITypeField)}
+                  content={buildExampleVariables(definition as APITypeField, article.inputs!)}
                   language="json"
                 />
               </div>
@@ -123,8 +127,9 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
   );
 }
 
-function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
+function DocsContentListItemField({ field, inputs }: DocsContentListItemFieldProps) {
   const isRequired = field.directives?.constraint?.required === "true";
+  const input = inputs && inputs[field.type];
 
   return (
     <article className="border-t py-2 last:pb-0">
@@ -142,6 +147,20 @@ function DocsContentListItemField({ field }: DocsContentListItemFieldProps) {
         </Flex>
         {field.description && <P color="secondary">{field.description}</P>}
       </Grid>
+      {input && (
+        <div className="pl-4">
+          <header className="py-2">
+            <H5>{field.type}</H5>
+          </header>
+          <section>
+            {input.fieldNames
+              .map((fieldName) => input.fields[fieldName])
+              .map((field) => (
+                <DocsContentListItemField key={field.name} field={field} inputs={inputs} />
+              ))}
+          </section>
+        </div>
+      )}
     </article>
   );
 }
@@ -185,7 +204,7 @@ function buildExampleGraphQL(action: "query" | "mutation", definition: APITypeFi
 }`;
 }
 
-function buildExampleObject(definition: APIType) {
+function buildExampleObject(definition: APIType | APIInput) {
   const object: Record<string, unknown> = {};
 
   if (definition.fieldNames) {
@@ -200,13 +219,31 @@ function buildExampleObject(definition: APIType) {
   return JSON.stringify(object, null, 2);
 }
 
-function buildExampleVariables(definition: APITypeField) {
+function buildExampleVariables(definition: APITypeField, inputs: Record<string, APIInput> = {}) {
   const variables: Record<string, unknown> = {};
 
   if (definition.argumentNames) {
     definition.argumentNames.forEach((argumentName) => {
       const argument = definition.arguments![argumentName];
-      const value = generateValue(argument.type);
+      const input = inputs[argument.type];
+      let value: unknown = null;
+
+      if (input) {
+        const object: Record<string, unknown> = {};
+
+        if (input.fieldNames) {
+          input.fieldNames.forEach((fieldName) => {
+            const field = input.fields![fieldName];
+            const value = generateValue(field.type);
+
+            object[fieldName] = value;
+          });
+        }
+
+        value = object;
+      } else {
+        value = generateValue(argument.type);
+      }
 
       variables[argumentName] = value;
     });
