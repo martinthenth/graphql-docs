@@ -1,6 +1,7 @@
 import { uuid4 } from "@/lib/uuid";
 import { APIDocsArticle, APIInput, APIType, APITypeField, APITypeFieldArgument } from "@/types";
 import { HTMLAttributes } from "react";
+import { Code } from "@/components/ui/code";
 import { CodeBlock } from "@/components/ui/codeblock";
 import { Flex } from "@/components/ui/flex";
 import { Grid } from "@/components/ui/grid";
@@ -32,16 +33,11 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
             <header className="py-2">
               <H4>{isType ? "Type" : article.type}</H4>
               <P className="pt-1">
-                {isType && <code className="p-1 rounded-lg bg-stone-100">{article.type}</code>}
+                {isType && <Code>{article.type}</Code>}
                 {(isQuery || isMutation) && (
                   <>
-                    <code className="p-1 rounded-lg bg-stone-100">
-                      {(article.definition as APITypeField).name}
-                    </code>
-                    :{" "}
-                    <code className="p-1 rounded-lg bg-stone-100">
-                      {(article.definition as APITypeField).type}
-                    </code>
+                    <Code>{(article.definition as APITypeField).name}</Code>:{" "}
+                    <Code>{(article.definition as APITypeField).type}</Code>
                   </>
                 )}
               </P>

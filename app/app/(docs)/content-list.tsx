@@ -9,9 +9,9 @@ interface DocsContentListProps extends HTMLAttributes<HTMLDivElement> {
   articles: APIDocsArticle[];
 }
 
-export function DocsContentList({ articles, title }: DocsContentListProps) {
+export function DocsContentList({ articles, className, title }: DocsContentListProps) {
   return (
-    <Grid>
+    <Grid className={className}>
       <div className="p-4">
         <H2>{title}</H2>
       </div>
