@@ -21,7 +21,7 @@ A beautiful GraphQL static documentation website - based on Next.js and Golang.
 ### Selecting the fields to render
 
 1. Open `app/app/page.tsx` which contains the documentation page.
-2. Find `generateApiDocs/1` which selects the GraphQL types, queries and mutations to render on the page.
+2. Find `buildDocs/1` which selects the GraphQL types, queries and mutations to render on the page.
 3. Add a section to `docs.sections` with the `Type` name, or the `Query` or `Mutation` field name.
 
 #### Example
