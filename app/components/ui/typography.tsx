@@ -99,8 +99,8 @@ export function P({ children, className, color, size = "md", ...props }: TextPro
 
 function getColorClass(color?: string) {
   if (color === "primary") return ["text-black"];
-  if (color === "secondary") return ["text-stone-700"];
-  if (color === "tertiary") return ["text-stone-500"];
+  if (color === "secondary") return ["text-zinc-700"];
+  if (color === "tertiary") return ["text-zinc-500"];
   if (color === "danger") return ["text-red-500"];
   return [];
 }

@@ -1,20 +1,15 @@
 import { uuid4 } from "@/lib/uuid";
-import { APIDocsArticle, APIInput, APIType, APITypeField, APITypeFieldArgument } from "@/types";
+import { APIDocsArticle, APIInput, APIType, APITypeField } from "@/types";
 import { HTMLAttributes } from "react";
 import { Anchor } from "@/components/ui/anchor";
 import { Code } from "@/components/ui/code";
-import { CodeBlock } from "@/components/ui/codeblock";
-import { Flex } from "@/components/ui/flex";
 import { Grid } from "@/components/ui/grid";
-import { H3, H4, H5, P } from "@/components/ui/typography";
+import { H3, H4, P } from "@/components/ui/typography";
+import { ApiCodeBlock } from "@/components/ux/api-codeblock";
+import { DocsContentListItemField } from "./content-list-item-field";
 
 interface DocsContentListItemProps extends HTMLAttributes<HTMLDivElement> {
   article: APIDocsArticle;
-}
-
-interface DocsContentListItemFieldProps extends HTMLAttributes<HTMLDivElement> {
-  field: APITypeField | APITypeFieldArgument;
-  inputs?: Record<string, APIInput>;
 }
 
 export function DocsContentListItem({ article, className }: DocsContentListItemProps) {
@@ -22,16 +17,13 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
   const isMutation = article.type === "Mutation";
   const isType = !isQuery && !isMutation;
   const definition = article.definition as APIType | APITypeField;
+  const anchor = ["Query", "Mutation"].includes(article.type)
+    ? (article.definition as APITypeField).name
+    : article.type;
 
   return (
     <div className={className}>
-      <Anchor
-        id={
-          ["Query", "Mutation"].includes(article.type)
-            ? (article.definition as APITypeField).name
-            : article.type
-        }
-      />
+      <Anchor id={anchor} />
       <header>
         <H3>{article.definition.description}</H3>
       </header>
@@ -77,98 +69,36 @@ export function DocsContentListItem({ article, className }: DocsContentListItemP
         </Grid>
         <Grid gap="md">
           {isType && (
-            <div className="rounded-lg overflow-hidden">
-              <div className="bg-stone-800 text-white p-2">
-                <H5>Object</H5>
-              </div>
-              <CodeBlock content={buildExampleObject(definition as APIType)} language="json" />
-            </div>
+            <ApiCodeBlock
+              title={article.definition.description || "Object"}
+              language="json"
+              content={stringify(buildExampleObject(definition as APIType))}
+            />
           )}
           {isQuery && (
-            <>
-              <div className="rounded-lg overflow-hidden">
-                <div className="bg-stone-800 text-white p-2">
-                  <H5>Query</H5>
-                </div>
-                <CodeBlock
-                  content={buildExampleGraphQL("query", definition as APITypeField)}
-                  language="graphql"
-                />
-              </div>
-              <div className="rounded-lg overflow-hidden">
-                <div className="bg-stone-800 text-white p-2">
-                  <H5>Variables</H5>
-                </div>
-                <CodeBlock
-                  content={buildExampleVariables(definition as APITypeField, article.inputs)}
-                  language="json"
-                />
-              </div>
-            </>
+            <ApiCodeBlock
+              title="Query"
+              language="graphql"
+              content={buildExampleGraphQL("query", definition as APITypeField)}
+            />
           )}
           {isMutation && (
-            <>
-              <div className="rounded-lg overflow-hidden">
-                <div className="bg-stone-800 text-white p-2">
-                  <H5>Mutation</H5>
-                </div>
-                <CodeBlock
-                  content={buildExampleGraphQL("mutation", definition as APITypeField)}
-                  language="graphql"
-                />
-              </div>
-              <div className="rounded-lg overflow-hidden">
-                <div className="bg-stone-800 text-white p-2">
-                  <H5>Variables</H5>
-                </div>
-                <CodeBlock
-                  content={buildExampleVariables(definition as APITypeField, article.inputs)}
-                  language="json"
-                />
-              </div>
-            </>
+            <ApiCodeBlock
+              title="Mutation"
+              language="graphql"
+              content={buildExampleGraphQL("mutation", definition as APITypeField)}
+            />
+          )}
+          {(isQuery || isMutation) && (
+            <ApiCodeBlock
+              title="Variables"
+              language="json"
+              content={stringify(buildExampleVariables(definition as APITypeField, article.inputs))}
+            />
           )}
         </Grid>
       </Grid>
     </div>
-  );
-}
-
-function DocsContentListItemField({ field, inputs }: DocsContentListItemFieldProps) {
-  const isRequired = field.directives?.constraint?.required === "true";
-  const input = inputs && inputs[field.type];
-
-  return (
-    <article className="border-t py-2 last:pb-0">
-      <Grid gap="xs">
-        <Flex gap="sm" items="end">
-          <H5>
-            <code>{field.name}</code>
-          </H5>
-          <P color="tertiary" size="sm" className="pb-px">
-            {field.type}
-          </P>
-          <P color="tertiary" size="sm" className="pb-px">
-            {isRequired ? "required" : "optional"}
-          </P>
-        </Flex>
-        {field.description && <P color="secondary">{field.description}</P>}
-      </Grid>
-      {input && (
-        <div className="pl-4">
-          <header className="py-2">
-            <H5>{field.type}</H5>
-          </header>
-          <section>
-            {input.fieldNames
-              .map((fieldName) => input.fields[fieldName])
-              .map((field) => (
-                <DocsContentListItemField key={field.name} field={field} inputs={inputs} />
-              ))}
-          </section>
-        </div>
-      )}
-    </article>
   );
 }
 
@@ -223,7 +153,7 @@ function buildExampleObject(definition: APIType | APIInput) {
     });
   }
 
-  return JSON.stringify(object, null, 2);
+  return object;
 }
 
 function buildExampleVariables(definition: APITypeField, inputs: Record<string, APIInput> = {}) {
@@ -236,18 +166,7 @@ function buildExampleVariables(definition: APITypeField, inputs: Record<string, 
       let value: unknown = null;
 
       if (input) {
-        const object: Record<string, unknown> = {};
-
-        if (input.fieldNames) {
-          input.fieldNames.forEach((fieldName) => {
-            const field = input.fields![fieldName];
-            const value = generateValue(field.type);
-
-            object[fieldName] = value;
-          });
-        }
-
-        value = object;
+        value = buildExampleObject(input);
       } else {
         value = generateValue(argument.type);
       }
@@ -256,7 +175,7 @@ function buildExampleVariables(definition: APITypeField, inputs: Record<string, 
     });
   }
 
-  return JSON.stringify(variables, null, 2);
+  return variables;
 }
 
 function generateValue(type: string) {
@@ -276,4 +195,8 @@ function generateValue(type: string) {
     default:
       return null;
   }
+}
+
+function stringify(value: object) {
+  return JSON.stringify(value, null, 2);
 }

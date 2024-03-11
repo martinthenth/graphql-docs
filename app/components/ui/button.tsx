@@ -72,10 +72,10 @@ function getColorClasses(
 ) {
   if (disabled) {
     return [
-      "bg-stone-300",
-      "border-stone-300",
-      "hover:bg-stone-300",
-      "hover:border-stone-300",
+      "bg-zinc-300",
+      "border-zinc-300",
+      "hover:bg-zinc-300",
+      "hover:border-zinc-300",
       "cursor-not-allowed",
     ];
   }
@@ -84,10 +84,10 @@ function getColorClasses(
     if (color == "default") {
       return [
         "text-white",
-        "bg-stone-500",
-        "border-stone-500",
-        "hover:bg-stone-600",
-        "hover:border-stone-600",
+        "bg-zinc-500",
+        "border-zinc-500",
+        "hover:bg-zinc-600",
+        "hover:border-zinc-600",
       ];
     }
     if (color == "primary") {
@@ -122,7 +122,7 @@ function getColorClasses(
   }
   if (variant == "outlined") {
     if (color == "default") {
-      return ["text-black", "border-stone-300", "hover:bg-stone-100"];
+      return ["text-black", "border-zinc-300", "hover:bg-zinc-100"];
     }
     if (color == "primary") {
       return ["text-blue-500", "border-blue-500", "hover:bg-blue-100"];
@@ -138,7 +138,7 @@ function getColorClasses(
   }
   if (variant == "minimal") {
     if (color == "default") {
-      return ["text-black", "border-white", "hover:bg-stone-100", "hover:border-stone-100"];
+      return ["text-black", "border-white", "hover:bg-zinc-100", "hover:border-zinc-100"];
     }
     if (color == "primary") {
       return ["text-blue-500", "border-white", "hover:bg-blue-100", "hover:border-blue-100"];
